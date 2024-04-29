@@ -6,10 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/plates.unity
+    path: Assets/Scenes/Memory.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 30cd0bea957df6e4ca691d2d50a1a429,
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: b352f7f32f822c74190b3f408f6b90a9,
       type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 4363b321015fbbb49b43d2684149a6f6,
       type: 2}
