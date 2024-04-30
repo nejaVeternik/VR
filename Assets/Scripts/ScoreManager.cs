@@ -30,7 +30,6 @@ public class ScoreManager : MonoBehaviour
     public void AddPoints(int points)
     {
         Score += points;  // Update the score
-        Debug.Log("Score updated: " + Score);
         
         // Update the TextMeshPro text
         if (scoreText != null)

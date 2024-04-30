@@ -9,13 +9,13 @@ public class Mover : MonoBehaviour
     public float rotationSpeed = 90f;         // Rotation speed in degrees per second (around the Z-axis)
     public float maxVerticalSpeed = 10f;      // Maximum vertical speed after acceleration
     public float smoothTime = 1.0f;         
-    public float removalHeight = 10f;           
-
+    public float removalHeight = 10f;
+    public GameObject animationPrefab;        // Animation prefab to spawn on poke
     private float currentSpeed;               // Current upward speed of the object
-    private float originalZ;                  // Original Z position to use as the base for left/right movement   // Current velocity in the Z direction (used by SmoothDamp)
+    private float originalZ;                  // Original Z position to use as the base for left/right movement
     private float horizontalSpeed = 0.0f;
     private PokeInteractable plate;
-    public int basePoints = 10;  // Default points for normal objects
+    public int basePoints = 10;               // Default points for normal objects
     public int extraPoints = 0;
 
     void Awake()
@@ -30,7 +30,7 @@ public class Mover : MonoBehaviour
     {
         originalZ = transform.position.z;     // Remember the original Z position at start
         currentSpeed = verticalSpeed;         // Set the initial upward speed
-        plate.WhenInteractorAdded.Action += OnPoked; // Add OnP
+        plate.WhenInteractorAdded.Action += OnPoked; // Subscribe to the poke event
     }
 
     void Update()
@@ -62,20 +62,27 @@ public class Mover : MonoBehaviour
             if (ScoreManager.Instance.Score > 0)
             {
                 ScoreManager.Instance.AddPoints(-20);
-                Debug.Log("BBB" + ScoreManager.Instance.Score);
             }
             
             Destroy(gameObject);  // Remove the object when it reaches the removal height
         }
     }
 
-    // This method is called by a collider (e.g., VR controller) that can "poke" the object
     private void OnPoked(PokeInteractor pokeInteractor)
     {
         if (ScoreManager.Instance != null)
         {
-            ScoreManager.Instance.AddPoints(basePoints + extraPoints);  // Add 10 points (or any other value) to the score
+            ScoreManager.Instance.AddPoints(basePoints + extraPoints);  // Add points to the score
         }
-        Destroy(gameObject, 1.0f);  // Remove the object from the scene when poked
+        
+        // Instantiate the animation GameObject and destroy it after 1 second
+        if (animationPrefab != null)
+        {
+            Debug.Log("AAAAAAAAAAA");
+            var animationInstance = Instantiate(animationPrefab, transform.position, Quaternion.identity);
+            Destroy(animationInstance, 1.0f);
+        }
+        
+        Destroy(gameObject);
     }
 }
