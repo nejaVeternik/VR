@@ -54,12 +54,17 @@ public class Spawner : MonoBehaviour
     {
         if (isSpecial)
         {
-            var renderer = obj.GetComponentInChildren<Renderer>();
+            Renderer plateVisualRenderer = obj.transform.Find("Visuals/PlateVisual/rozatutorialv2").GetComponent<Renderer>();
 
-            if (renderer != null)
+            if (plateVisualRenderer != null)
             {
-                renderer.material = specialMaterial;
+                plateVisualRenderer.material = specialMaterial;
             }
+            else
+            {
+                Debug.LogError("Renderer not found in the instantiated object!");
+            }
+            
             var pokeable = obj.GetComponent<Mover>();
             if (pokeable != null)
             {
