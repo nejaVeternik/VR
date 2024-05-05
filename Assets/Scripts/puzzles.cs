@@ -168,10 +168,10 @@ public class MemoryGame : MonoBehaviour
 
     void UpdateStatsDisplay()
     {
-        scoreText.text = "Rezultat: " + score.ToString();
-        matchesText.text = "Pari: " + matchesFound.ToString();
-        attemptsText.text = "Poskusi: " + attempts.ToString();
-        timeText.text = "Čas: " + timeElapsed.ToString("F2");
+        scoreText.text = "REZULTAT: " + score.ToString();
+        matchesText.text = "PARI: " + matchesFound.ToString();
+        attemptsText.text = "POSKUSI: " + attempts.ToString();
+        timeText.text = timeElapsed.ToString("F2");
     }
 
     void CheckForWin() 
@@ -186,7 +186,7 @@ public class MemoryGame : MonoBehaviour
         gameWon = true; 
         disable = true;
 
-        scoreText.text = "Končni rezultat: " + score.ToString();
-        timeText.text = "Čas: " + timeElapsed.ToString("F2");
+        scoreText.text = "REZULTAT: " + score.ToString();
+        timeText.text = timeElapsed.ToString("F2");
     }
 }
