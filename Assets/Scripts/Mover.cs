@@ -78,7 +78,6 @@ public class Mover : MonoBehaviour
         // Instantiate the animation GameObject and destroy it after 1 second
         if (animationPrefab != null)
         {
-            Debug.Log("AAAAAAAAAAA");
             var animationInstance = Instantiate(animationPrefab, transform.position, Quaternion.identity);
             Destroy(animationInstance, 1.0f);
         }
