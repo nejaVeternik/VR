@@ -6,6 +6,7 @@ public class ScoreManagerGait : MonoBehaviour
     public static ScoreManagerGait Instance;  // Singleton instance of the Score Manager
 
     public TextMeshProUGUI scoreText;     // Reference to the TextMeshProUGUI component
+    public TextMeshProUGUI scoreText1;
     public int Score { get; private set; }  // Current score
 
     private void Awake()
@@ -24,6 +25,9 @@ public class ScoreManagerGait : MonoBehaviour
         // Initialize the score text if it's assigned
         if (scoreText != null)
             scoreText.text = "" + 0;
+
+         if (scoreText1 != null)
+            scoreText1.text = "" + 0;
     }
 
     // Method to add points to the score
@@ -34,5 +38,8 @@ public class ScoreManagerGait : MonoBehaviour
         // Update the TextMeshPro text
         if (scoreText != null)
             scoreText.text = Score.ToString();
+
+        if (scoreText1 != null)
+            scoreText1.text = Score.ToString();
     }
 }
