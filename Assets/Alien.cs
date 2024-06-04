@@ -6,8 +6,11 @@ using Oculus.Interaction;
 public class Alien : MonoBehaviour
 {
     private PokeInteractable alien;
-    public int basePoints = 10;               // Default points for normal objects
+    public int basePoints = 10;  // Default points for normal objects
     public int extraPoints = 0;
+
+    public delegate void AlienPokedHandler(GameObject alien);
+    public event AlienPokedHandler OnAlienPoked;
 
     void Awake()
     {
@@ -16,12 +19,12 @@ public class Alien : MonoBehaviour
         {
             Debug.LogError("No PokeInteractable found on the GameObject or its children!");
         }
-
     }
 
     void Start()
     {
         alien.WhenInteractorAdded.Action += OnPoked;
+        gameObject.SetActive(false);  // Ensure alien starts inactive
     }
 
     void OnDestroy()
@@ -31,18 +34,14 @@ public class Alien : MonoBehaviour
 
     private void OnPoked(PokeInteractor pokeInteractor)
     {
-        if (Buttons.Instance != null && Buttons.Instance.IsCurrentLight(GetComponent<Light>()))
+        if (AlienScoreManager.Instance != null)
         {
-            if (AlienScoreManager.Instance != null)
-            {
-                AlienScoreManager.Instance.AddPoints(basePoints + extraPoints);  // Add points to the score
-            }
-
-            GetComponent<Light>().enabled = false; // Disable the Light component
-
-            Buttons.Instance.LightUpRandomLight(); // Select the next random light
+            AlienScoreManager.Instance.AddPoints(basePoints + extraPoints);  // Add points to the score
         }
 
-        Debug.Log("Poked the correct light!");
+        Debug.Log("Poked the alien!");
+
+        // Trigger the OnAlienPoked event to inform the manager
+        OnAlienPoked?.Invoke(gameObject);
     }
 }

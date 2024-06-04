@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AlienManager : MonoBehaviour
 {
-    public GameObject[] aliens = new GameObject[8];  // Array of alien gameObjects
+    public GameObject[] aliens;  // Array of alien gameObjects
     public float popUpHeight = 1.0f;  // Height the alien will move up
     public float popUpTime = 0.5f;  // Time taken for the alien to pop up
     public float stayUpTime = 2.0f;  // Time the alien stays up
@@ -13,7 +13,20 @@ public class AlienManager : MonoBehaviour
 
     void Start()
     {
+        foreach (GameObject alien in aliens)
+        {
+            Alien alienScript = alien.GetComponent<Alien>();
+            if (alienScript != null)
+            {
+                alienScript.OnAlienPoked += OnAlienPoked;
+            }
+        }
         StartCoroutine(PopUpRandomAlien());
+    }
+
+    private void OnAlienPoked(GameObject alien)
+    {
+        StartCoroutine(MoveAlienDown(alien));  // Immediately move the poked alien down
     }
 
     IEnumerator PopUpRandomAlien()
@@ -33,34 +46,44 @@ public class AlienManager : MonoBehaviour
             Vector3 initialPosition = alien.transform.position;
             Vector3 targetPosition = initialPosition + Vector3.up * popUpHeight;
 
-            float timer = 0;
-            while (timer < popUpTime)
-            {
-                alien.transform.position = Vector3.Lerp(initialPosition, targetPosition, timer / popUpTime);
-                timer += Time.deltaTime;
-                yield return null;
-            }
-            alien.transform.position = targetPosition;
+            yield return StartCoroutine(MoveAlienUp(alien, initialPosition, targetPosition));
 
             alien.SetActive(true);
 
             // Wait for a certain time before moving the alien down
             yield return new WaitForSeconds(stayUpTime);
 
-            // Move the alien back down
-            timer = 0;
-            while (timer < popUpTime)
-            {
-                alien.transform.position = Vector3.Lerp(targetPosition, initialPosition, timer / popUpTime);
-                timer += Time.deltaTime;
-                yield return null;
-            }
-            alien.transform.position = initialPosition;
-
-            alien.SetActive(false);
-
-            // Wait for a short period before the next alien pops up
-            yield return new WaitForSeconds(1.0f);
+            yield return StartCoroutine(MoveAlienDown(alien));
         }
+    }
+
+    IEnumerator MoveAlienUp(GameObject alien, Vector3 initialPosition, Vector3 targetPosition)
+    {
+        float timer = 0;
+        while (timer < popUpTime)
+        {
+            alien.transform.position = Vector3.Lerp(initialPosition, targetPosition, timer / popUpTime);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        alien.transform.position = targetPosition;
+        Debug.Log($"{alien.name} moved up.");
+    }
+
+    IEnumerator MoveAlienDown(GameObject alien)
+    {
+        Vector3 targetPosition = alien.transform.position - Vector3.up * popUpHeight;
+        Vector3 initialPosition = alien.transform.position;
+
+        float timer = 0;
+        while (timer < popUpTime)
+        {
+            alien.transform.position = Vector3.Lerp(initialPosition, targetPosition, timer / popUpTime);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        alien.transform.position = targetPosition;
+        alien.SetActive(false);
+        Debug.Log($"{alien.name} moved down.");
     }
 }
