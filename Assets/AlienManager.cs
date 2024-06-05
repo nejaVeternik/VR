@@ -5,7 +5,8 @@ using UnityEngine;
 public class AlienManager : MonoBehaviour
 {
     public GameObject[] aliens;  // Array of alien gameObjects
-    public float popUpHeight = 1.0f;  // Height the alien will move up
+    public float initialY = 3.7f;  // Initial Y position for aliens when they are down
+    public float targetY = 3.84f;  // Target Y position for aliens when they move up
     public float popUpTime = 0.5f;  // Time taken for the alien to pop up
     public float stayUpTime = 2.0f;  // Time the alien stays up
 
@@ -19,6 +20,11 @@ public class AlienManager : MonoBehaviour
             if (alienScript != null)
             {
                 alienScript.OnAlienPoked += OnAlienPoked;
+                // Initialize the aliens to their initial positions
+                Vector3 initialPosition = alien.transform.position;
+                Debug.Log($"Alien {alien.name} initial position: {initialPosition}");
+                //alien.transform.position = new Vector3(initialPosition.x, initialY, initialPosition.z);
+                //Debug.Log($"Alien {alien.name} transformed position: {alien.transform.position}");
             }
         }
         StartCoroutine(PopUpRandomAlien());
@@ -43,12 +49,10 @@ public class AlienManager : MonoBehaviour
             // Move the chosen alien up
             currentAlienIndex = nextAlienIndex;
             GameObject alien = aliens[currentAlienIndex];
-            Vector3 initialPosition = alien.transform.position;
-            Vector3 targetPosition = initialPosition + Vector3.up * popUpHeight;
+            Vector3 initialPosition = new Vector3(alien.transform.position.x, alien.transform.position.y, alien.transform.position.z);
+            Vector3 targetPosition = new Vector3(alien.transform.position.x, 3.84f, alien.transform.position.z);
 
             yield return StartCoroutine(MoveAlienUp(alien, initialPosition, targetPosition));
-
-            alien.SetActive(true);
 
             // Wait for a certain time before moving the alien down
             yield return new WaitForSeconds(stayUpTime);
@@ -72,8 +76,8 @@ public class AlienManager : MonoBehaviour
 
     IEnumerator MoveAlienDown(GameObject alien)
     {
-        Vector3 targetPosition = alien.transform.position - Vector3.up * popUpHeight;
         Vector3 initialPosition = alien.transform.position;
+        Vector3 targetPosition = new Vector3(alien.transform.position.x, 3.7f, alien.transform.position.z);
 
         float timer = 0;
         while (timer < popUpTime)
@@ -83,7 +87,6 @@ public class AlienManager : MonoBehaviour
             yield return null;
         }
         alien.transform.position = targetPosition;
-        alien.SetActive(false);
         Debug.Log($"{alien.name} moved down.");
     }
 }

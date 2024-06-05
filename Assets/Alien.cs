@@ -24,7 +24,6 @@ public class Alien : MonoBehaviour
     void Start()
     {
         alien.WhenInteractorAdded.Action += OnPoked;
-        gameObject.SetActive(false);  // Ensure alien starts inactive
     }
 
     void OnDestroy()
