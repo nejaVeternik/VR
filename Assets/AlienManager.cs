@@ -6,10 +6,10 @@ public class AlienManager : MonoBehaviour
 {
     public GameObject[] aliens;  // Array of alien gameObjects
     public int maxUpAliens = 3;  // Maximum number of aliens that can be up at the same time
-    private float initialY = 3.2f;  // Hardcoded initial Y position for aliens when they are down
-    private float targetY = 3.418f;  // Hardcoded target Y position for aliens when they move up
-    public float minPopUpTime = 0.5f;  // Minimum time taken for the alien to pop up
-    public float maxPopUpTime = 1.5f;  // Maximum time taken for the alien to pop up
+    private float initialY = 0.2f;  // Hardcoded initial Y position for aliens when they are down
+    private float targetY = 0.44f;  // Hardcoded target Y position for aliens when they move up
+    public float minPopUpTime = 0.25f;  // Minimum time taken for the alien to pop up (half of original)
+    public float maxPopUpTime = 0.75f;  // Maximum time taken for the alien to pop up (half of original)
     public float minStayUpTime = 1.0f;  // Minimum time the alien stays up
     public float maxStayUpTime = 3.0f;  // Maximum time the alien stays up
 
@@ -37,6 +37,35 @@ public class AlienManager : MonoBehaviour
     private void OnAlienPoked(GameObject alien)
     {
         StartCoroutine(MoveAlienDown(alien));  // Immediately move the poked alien down
+        if (upAliens.Count < maxUpAliens)
+        {
+            StartCoroutine(PopUpImmediateAlien());
+        }
+    }
+
+    IEnumerator PopUpImmediateAlien()
+    {
+        // Choose a random alien index that is not up already
+        int nextAlienIndex;
+        do
+        {
+            nextAlienIndex = Random.Range(0, aliens.Length);
+        } while (upAliens.Contains(nextAlienIndex));
+
+        // Move the chosen alien up
+        currentAlienIndex = nextAlienIndex;
+        GameObject alien = aliens[currentAlienIndex];
+        Vector3 initialPosition = new Vector3(alien.transform.position.x, initialY, alien.transform.position.z);
+        Vector3 targetPosition = new Vector3(alien.transform.position.x, targetY, alien.transform.position.z);
+
+        upAliens.Add(currentAlienIndex);
+        yield return StartCoroutine(MoveAlienUp(alien, initialPosition, targetPosition));
+
+        // Wait for a random time before moving the alien down
+        float stayUpTime = Random.Range(minStayUpTime, maxStayUpTime);
+        yield return new WaitForSeconds(stayUpTime);
+
+        StartCoroutine(MoveAlienDown(alien));
     }
 
     IEnumerator PopUpRandomAlien()
@@ -45,27 +74,7 @@ public class AlienManager : MonoBehaviour
         {
             if (upAliens.Count < maxUpAliens)
             {
-                // Choose a random alien index that is not up already
-                int nextAlienIndex;
-                do
-                {
-                    nextAlienIndex = Random.Range(0, aliens.Length);
-                } while (upAliens.Contains(nextAlienIndex));
-
-                // Move the chosen alien up
-                currentAlienIndex = nextAlienIndex;
-                GameObject alien = aliens[currentAlienIndex];
-                Vector3 initialPosition = new Vector3(alien.transform.position.x, initialY, alien.transform.position.z);
-                Vector3 targetPosition = new Vector3(alien.transform.position.x, targetY, alien.transform.position.z);
-
-                upAliens.Add(currentAlienIndex);
-                yield return StartCoroutine(MoveAlienUp(alien, initialPosition, targetPosition));
-
-                // Wait for a random time before moving the alien down
-                float stayUpTime = Random.Range(minStayUpTime, maxStayUpTime);
-                yield return new WaitForSeconds(stayUpTime);
-
-                StartCoroutine(MoveAlienDown(alien));
+                yield return StartCoroutine(PopUpImmediateAlien());
             }
             yield return new WaitForSeconds(0.1f);  // Small delay before checking again
         }
