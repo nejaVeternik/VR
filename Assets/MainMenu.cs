@@ -30,6 +30,10 @@ public class MainMenu : MonoBehaviour
     }
 
     public void loadWhackAMole() {
-        SceneManager.LoadScene("WhackAMmole");
+        SceneManager.LoadScene("WhackAMole");
+    }
+
+    public void quitApplication() {
+        Application.Quit();
     }
 }
