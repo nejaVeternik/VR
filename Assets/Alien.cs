@@ -33,10 +33,7 @@ public class Alien : MonoBehaviour
 
     private void OnPoked(PokeInteractor pokeInteractor)
     {
-        if (AlienScoreManager.Instance != null)
-        {
-            AlienScoreManager.Instance.AddPoints(basePoints + extraPoints);  // Add points to the score
-        }
+        AlienScoreManager.Instance?.AddPoints(basePoints + extraPoints);  // Add points to the score
 
         Debug.Log("Poked the alien!");
 

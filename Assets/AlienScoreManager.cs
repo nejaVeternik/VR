@@ -1,45 +1,59 @@
 using UnityEngine;
-using TMPro;  // Add this to access TextMeshPro components
+using TMPro;
 
 public class AlienScoreManager : MonoBehaviour
 {
-    public static AlienScoreManager Instance;  // Singleton instance of the Score Manager
+    public static AlienScoreManager Instance { get; private set; }
 
-    public TextMeshProUGUI scoreText;     // Reference to the TextMeshProUGUI component
-    public TextMeshProUGUI scoreText1;
-    public int Score { get; private set; }  // Current score
+    public TextMeshProUGUI scoreText;  // Reference to the TextMeshProUGUI element to display the score
+    private int score = 0;
 
-    private void Awake()
+    void Awake()
     {
-        // Ensure that there is only one instance of the Score Manager
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);  // Optional: makes the object persistent across scenes
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
-
-        // Initialize the score text if it's assigned
-        if (scoreText != null)
-            scoreText.text = "" + 0;
-
-         if (scoreText1 != null)
-            scoreText1.text = "" + 0;
     }
 
-    // Method to add points to the score
+    void Start()
+    {
+        UpdateScoreText();
+    }
+
     public void AddPoints(int points)
     {
-        Score += points;  // Update the score
-        
-        // Update the TextMeshPro text
-        if (scoreText != null)
-            scoreText.text = Score.ToString();
+        score += points;
+        Debug.Log($"Score increased by {points}. Current score: {score}");
+        UpdateScoreText();
+    }
 
-        if (scoreText1 != null)
-            scoreText1.text = Score.ToString();
+    public void ReducePoints(int points)
+    {
+        score -= points;
+        if (score < 0)
+        {
+            score = 0;
+        }
+        Debug.Log($"Score decreased by {points}. Current score: {score}");
+        UpdateScoreText();
+    }
+
+    private void UpdateScoreText()
+    {
+        if (scoreText != null)
+        {
+            scoreText.text = $"{score}";
+        }
+    }
+
+    public int GetScore()
+    {
+        return score;
     }
 }

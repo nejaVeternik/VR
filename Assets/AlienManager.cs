@@ -7,11 +7,13 @@ public class AlienManager : MonoBehaviour
     public GameObject[] aliens;  // Array of alien gameObjects
     public int maxUpAliens = 3;  // Maximum number of aliens that can be up at the same time
     private float initialY = 0.2f;  // Hardcoded initial Y position for aliens when they are down
-    private float targetY = 0.44f;  // Hardcoded target Y position for aliens when they move up
+    private float targetY = 0.42f;  // Hardcoded target Y position for aliens when they move up
     public float minPopUpTime = 0.25f;  // Minimum time taken for the alien to pop up (half of original)
     public float maxPopUpTime = 0.75f;  // Maximum time taken for the alien to pop up (half of original)
     public float minStayUpTime = 1.0f;  // Minimum time the alien stays up
     public float maxStayUpTime = 3.0f;  // Maximum time the alien stays up
+    public float minPopDownTime = 0.25f;  // Minimum time taken for the alien to go down
+    public float maxPopDownTime = 0.75f;  // Maximum time taken for the alien to go down
 
     private int currentAlienIndex = -1;  // Index of the currently active alien
     private List<int> upAliens = new List<int>();  // List to keep track of aliens that are up
@@ -65,7 +67,12 @@ public class AlienManager : MonoBehaviour
         float stayUpTime = Random.Range(minStayUpTime, maxStayUpTime);
         yield return new WaitForSeconds(stayUpTime);
 
-        StartCoroutine(MoveAlienDown(alien));
+        // Check if the alien is still up and not poked
+        if (upAliens.Contains(currentAlienIndex))
+        {
+            AlienScoreManager.Instance?.ReducePoints(5);  // Reduce score by 20
+            StartCoroutine(MoveAlienDown(alien));
+        }
     }
 
     IEnumerator PopUpRandomAlien()
@@ -102,7 +109,7 @@ public class AlienManager : MonoBehaviour
             Vector3 initialPosition = alien.transform.position;
             Vector3 targetPosition = new Vector3(alien.transform.position.x, initialY, alien.transform.position.z);
 
-            float popDownTime = Random.Range(minPopUpTime, maxPopUpTime);
+            float popDownTime = Random.Range(minPopDownTime, maxPopDownTime);
             float timer = 0;
             while (timer < popDownTime)
             {
