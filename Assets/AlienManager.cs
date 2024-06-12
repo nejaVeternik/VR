@@ -17,9 +17,12 @@ public class AlienManager : MonoBehaviour
 
     private int currentAlienIndex = -1;  // Index of the currently active alien
     private List<int> upAliens = new List<int>();  // List to keep track of aliens that are up
+    private ControllerManager controllerManager;
 
     void Start()
     {
+        controllerManager = FindObjectOfType<ControllerManager>();
+
         foreach (GameObject alien in aliens)
         {
             Alien alienScript = alien.GetComponent<Alien>();
@@ -38,6 +41,8 @@ public class AlienManager : MonoBehaviour
 
     private void OnAlienPoked(GameObject alien)
     {
+        if (controllerManager.IsPaused()) return;
+
         StartCoroutine(MoveAlienDown(alien));  // Immediately move the poked alien down
         if (upAliens.Count < maxUpAliens)
         {
@@ -79,6 +84,12 @@ public class AlienManager : MonoBehaviour
     {
         while (true)
         {
+            if (controllerManager.IsPaused())
+            {
+                yield return null;
+                continue;
+            }
+
             if (upAliens.Count < maxUpAliens)
             {
                 yield return StartCoroutine(PopUpImmediateAlien());
@@ -93,6 +104,8 @@ public class AlienManager : MonoBehaviour
         float timer = 0;
         while (timer < popUpTime)
         {
+            if (controllerManager.IsPaused()) yield return null;
+
             alien.transform.position = Vector3.Lerp(initialPosition, targetPosition, timer / popUpTime);
             timer += Time.deltaTime;
             yield return null;
@@ -113,6 +126,8 @@ public class AlienManager : MonoBehaviour
             float timer = 0;
             while (timer < popDownTime)
             {
+                if (controllerManager.IsPaused()) yield return null;
+
                 alien.transform.position = Vector3.Lerp(initialPosition, targetPosition, timer / popDownTime);
                 timer += Time.deltaTime;
                 yield return null;

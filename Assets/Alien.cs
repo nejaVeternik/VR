@@ -12,6 +12,8 @@ public class Alien : MonoBehaviour
     public delegate void AlienPokedHandler(GameObject alien);
     public event AlienPokedHandler OnAlienPoked;
 
+    private ControllerManager controllerManager;
+
     void Awake()
     {
         alien = GetComponentInChildren<PokeInteractable>();
@@ -23,6 +25,7 @@ public class Alien : MonoBehaviour
 
     void Start()
     {
+        controllerManager = FindObjectOfType<ControllerManager>();
         alien.WhenInteractorAdded.Action += OnPoked;
     }
 
@@ -33,6 +36,8 @@ public class Alien : MonoBehaviour
 
     private void OnPoked(PokeInteractor pokeInteractor)
     {
+        if (controllerManager.IsPaused()) return;
+
         AlienScoreManager.Instance?.AddPoints(basePoints + extraPoints);  // Add points to the score
 
         Debug.Log("Poked the alien!");

@@ -13,21 +13,22 @@ public class ControllerManager : MonoBehaviour
     {
         if ((OVRInput.GetUp(OVRInput.Button.One) || OVRInput.GetUp(OVRInput.Button.Start)))
         {
-            if (isPaused == false) {
-                pauseGame();
+            if (isPaused == false)
+            {
+                PauseGame();
             }
-    
-            //OVRInput.SetControllerVibration(1, 0.6f, OVRInput.Controller.RTouch);
         }
     }
 
-    public void pauseGame() {
+    public void PauseGame()
+    {
         isPaused = true;
         Time.timeScale = 0;
         menu.SetActive(true);
     }
 
-    public void continueGame() {
+    public void ContinueGame()
+    {
         if (isPaused)
         {
             Time.timeScale = 1;
@@ -36,9 +37,15 @@ public class ControllerManager : MonoBehaviour
         }
     }
 
-    public void toMainMenu() {
+    public void ToMainMenu()
+    {
         Time.timeScale = 1;
         Destroy(gameObject);
         SceneManager.LoadScene("Menu");
+    }
+
+    public bool IsPaused()
+    {
+        return isPaused;
     }
 }
