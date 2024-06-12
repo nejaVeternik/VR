@@ -15,7 +15,6 @@ public class ScoreManagerGait : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);  // Optional: makes the object persistent across scenes
         }
         else
         {

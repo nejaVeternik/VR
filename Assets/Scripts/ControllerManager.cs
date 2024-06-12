@@ -1,16 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ControllerManager : MonoBehaviour
 {
     public GameObject menu;
     private bool isPaused = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -21,9 +17,7 @@ public class ControllerManager : MonoBehaviour
                 pauseGame();
             }
     
-            OVRInput.SetControllerVibration(1, 0.6f, OVRInput.Controller.RTouch);
-            //wait 0.5 second
-            OVRInput.SetControllerVibration(0, 0.6f, OVRInput.Controller.RTouch);
+            //OVRInput.SetControllerVibration(1, 0.6f, OVRInput.Controller.RTouch);
         }
     }
 
@@ -40,5 +34,11 @@ public class ControllerManager : MonoBehaviour
             menu.SetActive(false);
             isPaused = false;
         }
+    }
+
+    public void toMainMenu() {
+        Time.timeScale = 1;
+        Destroy(gameObject);
+        SceneManager.LoadScene("Menu");
     }
 }
