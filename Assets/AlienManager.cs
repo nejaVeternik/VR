@@ -39,15 +39,26 @@ public class AlienManager : MonoBehaviour
         StartCoroutine(PopUpRandomAlien());
     }
 
-    private void OnAlienPoked(GameObject alien)
+    private void OnAlienPoked(GameObject alien, float reactionTime)
     {
         if (controllerManager.IsPaused()) return;
+
+        int points = CalculatePoints(reactionTime);
+        AlienScoreManager.Instance?.AddPoints(points);
 
         StartCoroutine(MoveAlienDown(alien));  // Immediately move the poked alien down
         if (upAliens.Count < maxUpAliens)
         {
             StartCoroutine(PopUpImmediateAlien());
         }
+    }
+
+    private int CalculatePoints(float reactionTime)
+    {
+        if (reactionTime <= 1.0f) return 10;
+        if (reactionTime <= 1.3f) return 5;
+        if (reactionTime <= 1.8f) return 3;
+        return 1;
     }
 
     IEnumerator PopUpImmediateAlien()
@@ -66,6 +77,9 @@ public class AlienManager : MonoBehaviour
         Vector3 targetPosition = new Vector3(alien.transform.position.x, targetY, alien.transform.position.z);
 
         upAliens.Add(currentAlienIndex);
+        Alien alienScript = alien.GetComponent<Alien>();
+        alienScript.PopUpTime = Time.time;  // Track the pop-up time
+
         yield return StartCoroutine(MoveAlienUp(alien, initialPosition, targetPosition));
 
         // Wait for a random time before moving the alien down
@@ -75,7 +89,6 @@ public class AlienManager : MonoBehaviour
         // Check if the alien is still up and not poked
         if (upAliens.Contains(currentAlienIndex))
         {
-            AlienScoreManager.Instance?.ReducePoints(5);  // Reduce score by 20
             StartCoroutine(MoveAlienDown(alien));
         }
     }

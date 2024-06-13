@@ -11,10 +11,11 @@ public class Buttons : MonoBehaviour
     private Light currentLight;
     private float timer;
     private bool isLightOn;
+    private ControllerManager controllerManager;
 
     void Awake()
     {
-        // Ensure there is only one instance of the LightManager
+        // Ensure there is only one instance of the Buttons
         if (Instance == null)
         {
             Instance = this;
@@ -27,6 +28,8 @@ public class Buttons : MonoBehaviour
 
     void Start()
     {
+        controllerManager = FindObjectOfType<ControllerManager>();
+
         if (lights.Length != 26)
         {
             Debug.LogError("The lights array must contain exactly 26 Light instances.");
@@ -38,6 +41,8 @@ public class Buttons : MonoBehaviour
 
     void Update()
     {
+        if (controllerManager != null && controllerManager.IsPaused()) return;
+
         if (currentLight != null)
         {
             timer += Time.deltaTime;
@@ -52,6 +57,8 @@ public class Buttons : MonoBehaviour
 
     public void LightUpRandomLight()
     {
+        if (controllerManager != null && controllerManager.IsPaused()) return;
+
         int randomIndex = Random.Range(0, lights.Length);
 
         foreach (Light light in lights)

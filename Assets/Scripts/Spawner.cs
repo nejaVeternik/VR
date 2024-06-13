@@ -12,14 +12,16 @@ public class Spawner : MonoBehaviour
     public float startZ = -5f;
     public int maxObjects = 10;  // Maximum number of objects that can be active at the same time
     public float lineOffset = 2f;  // Distance between two lines of objects
-    public Material specialMaterial;         // New Material for special objects
-    public int bonusPoints = 20;             // Extra points for special objects
+    public Material specialMaterial;  // New Material for special objects
+    public int bonusPoints = 20;  // Extra points for special objects
     public float specialChance = 0.1f; 
 
     private List<GameObject> spawnedObjects = new List<GameObject>();  // List to track active objects
+    private ControllerManager controllerManager;
 
     private void Start()
     {
+        controllerManager = FindObjectOfType<ControllerManager>();
         StartCoroutine(SpawnObject());
     }
 
@@ -27,6 +29,12 @@ public class Spawner : MonoBehaviour
     {
         while (true)
         {
+            if (controllerManager != null && controllerManager.IsPaused())
+            {
+                yield return null;
+                continue;
+            }
+
             if (spawnedObjects.Count < maxObjects - 1)
             {
                 float baseX = Random.Range(minX, maxX);
@@ -64,7 +72,7 @@ public class Spawner : MonoBehaviour
             {
                 Debug.LogError("Renderer not found in the instantiated object!");
             }
-            
+
             var pokeable = obj.GetComponent<Mover>();
             if (pokeable != null)
             {

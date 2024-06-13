@@ -9,10 +9,11 @@ public class Alien : MonoBehaviour
     public int basePoints = 10;  // Default points for normal objects
     public int extraPoints = 0;
 
-    public delegate void AlienPokedHandler(GameObject alien);
+    public delegate void AlienPokedHandler(GameObject alien, float reactionTime);
     public event AlienPokedHandler OnAlienPoked;
 
     private ControllerManager controllerManager;
+    public float PopUpTime { get; set; }
 
     void Awake()
     {
@@ -38,11 +39,9 @@ public class Alien : MonoBehaviour
     {
         if (controllerManager.IsPaused()) return;
 
-        AlienScoreManager.Instance?.AddPoints(basePoints + extraPoints);  // Add points to the score
+        float reactionTime = Time.time - PopUpTime;
+        Debug.Log($"Reaction Time: {reactionTime}");
 
-        Debug.Log("Poked the alien!");
-
-        // Trigger the OnAlienPoked event to inform the manager
-        OnAlienPoked?.Invoke(gameObject);
+        OnAlienPoked?.Invoke(gameObject, reactionTime);
     }
 }

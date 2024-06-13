@@ -13,6 +13,7 @@ public class AlienScoreManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            //DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -29,17 +30,6 @@ public class AlienScoreManager : MonoBehaviour
     {
         score += points;
         Debug.Log($"Score increased by {points}. Current score: {score}");
-        UpdateScoreText();
-    }
-
-    public void ReducePoints(int points)
-    {
-        score -= points;
-        if (score < 0)
-        {
-            score = 0;
-        }
-        Debug.Log($"Score decreased by {points}. Current score: {score}");
         UpdateScoreText();
     }
 
