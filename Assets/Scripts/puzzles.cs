@@ -136,7 +136,7 @@ public class MemoryGame : MonoBehaviour
             {
                 Debug.Log("It's a match!");
                 matchesFound++;
-                score += 100;
+                AddPoints(100);
                 matchedCubes.Add(firstSelectedQuad);
                 matchedCubes.Add(secondSelectedQuad);
                 
@@ -148,7 +148,7 @@ public class MemoryGame : MonoBehaviour
             else
             {
                 Debug.Log("Not a match.");
-                score -= 10;
+                AddPoints(-10);
                 coroutine = ResetCubes(1);
                 StartCoroutine(coroutine);
             }
@@ -191,5 +191,15 @@ public class MemoryGame : MonoBehaviour
 
         scoreText.text = "REZULTAT: " + score.ToString();
         timeText.text = timeElapsed.ToString("F2");
+    }
+
+    void AddPoints(int points)
+    {
+        score += points;
+        if (score < 0)
+        {
+            score = 0;
+        }
+        UpdateStatsDisplay();
     }
 }
