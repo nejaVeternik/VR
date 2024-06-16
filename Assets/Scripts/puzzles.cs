@@ -14,7 +14,6 @@ public class MemoryGame : MonoBehaviour
     public TextMeshProUGUI attemptsText;
     public TextMeshProUGUI timeText;
 
-    private OVRInput.Controller activeController = OVRInput.Controller.RTouch;
     private GameObject firstSelectedQuad = null;
     private GameObject secondSelectedQuad = null;
     private IEnumerator coroutine;
@@ -38,24 +37,27 @@ public class MemoryGame : MonoBehaviour
             timeElapsed += Time.deltaTime;
             UpdateStatsDisplay();
         }
-        
-        activeController = OVRInput.GetActiveController();
 
-        Vector3 controllerPosition = cameraRig.transform.TransformPoint(OVRInput.GetLocalControllerPosition(activeController));
-        Vector3 controllerForward = cameraRig.transform.TransformDirection(OVRInput.GetLocalControllerRotation(activeController) * Vector3.forward);
+        CheckControllerInput(OVRInput.Controller.RTouch);
+        CheckControllerInput(OVRInput.Controller.LTouch);
+    }
+
+    private void CheckControllerInput(OVRInput.Controller controller)
+    {
+        Vector3 controllerPosition = cameraRig.transform.TransformPoint(OVRInput.GetLocalControllerPosition(controller));
+        Vector3 controllerForward = cameraRig.transform.TransformDirection(OVRInput.GetLocalControllerRotation(controller) * Vector3.forward);
 
         Ray ray = new Ray(controllerPosition, controllerForward);
         RaycastHit hit;
 
-        if (!disable && OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, activeController))
+        if (!disable && OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, controller))
         {
-
             if (Physics.Raycast(ray, out hit))
             {
                 GameObject hitCube = hit.collider.gameObject;
                 GameObject selectedCube = IsCube(hitCube);
 
-                if (selectedCube != null && !matchedCubes.Contains(selectedCube)) 
+                if (selectedCube != null && !matchedCubes.Contains(selectedCube))
                 {
                     selectedCube.transform.Rotate(0, 180, 0);
                     GameObject selectedQuad = selectedCube.transform.GetChild(0).gameObject;
@@ -68,7 +70,7 @@ public class MemoryGame : MonoBehaviour
                     {
                         secondSelectedQuad = selectedCube;
                         CheckPair();
-                    }  
+                    }
                 }
             }
         }
@@ -118,7 +120,7 @@ public class MemoryGame : MonoBehaviour
 
     public void selected()
     {
-        Debug.Log("selected");
+        //Debug.Log("selected");
     }
 
     void CheckPair()
@@ -174,16 +176,17 @@ public class MemoryGame : MonoBehaviour
         timeText.text = timeElapsed.ToString("F2");
     }
 
-    void CheckForWin() 
+    void CheckForWin()
     {
-        if (matchesFound == quads.Length / 2) {
+        if (matchesFound == quads.Length / 2)
+        {
             WinGame();
         }
     }
 
     void WinGame()
     {
-        gameWon = true; 
+        gameWon = true;
         disable = true;
 
         scoreText.text = "REZULTAT: " + score.ToString();
