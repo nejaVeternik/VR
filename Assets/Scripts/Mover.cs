@@ -11,6 +11,8 @@ public class Mover : MonoBehaviour
     public float smoothTime = 1.0f;  // Smooth time for horizontal movement
     public float removalHeight = 10f;  // Height at which to remove the object
     public GameObject animationPrefab;  // Animation prefab to spawn on poke
+    public float trackHitHeight = 3f;  // Height from which to start tracking the hit time
+
     private float currentSpeed;  // Current upward speed of the object
     private float originalZ;  // Original Z position to use as the base for left/right movement
     private float horizontalSpeed = 0.0f;
@@ -19,6 +21,11 @@ public class Mover : MonoBehaviour
     public int extraPoints = 0;
     private ControllerManager controllerManager;
     private bool isPoked = false;
+    private bool hasSlowedDown = false;  // Flag to check if the object has slowed down
+    private float slowDownTime;  // Time when the object slowed down
+    private bool isSpecial = false;  // Flag to check if the object is special
+    private float trackStartTime;  // Time when the object reaches trackHitHeight
+    private float hitHeight;  // Height at which the object was hit
 
     void Awake()
     {
@@ -43,6 +50,7 @@ public class Mover : MonoBehaviour
         if (isPoked) return;  // Skip updates if the object is poked
 
         checkForRemoval();
+
         // Manage vertical movement
         if (transform.position.y < targetHeight)
         {
@@ -50,9 +58,20 @@ public class Mover : MonoBehaviour
         }
         else
         {
+            if (!hasSlowedDown)
+            {
+                hasSlowedDown = true;
+                slowDownTime = Time.time;  // Record the time when the object slows down
+            }
             currentSpeed = verticalSpeed;
         }
         transform.position += Vector3.up * currentSpeed * Time.deltaTime;
+
+        // Record the time when the object reaches the trackHitHeight
+        if (transform.position.y >= trackHitHeight && trackStartTime == 0f)
+        {
+            trackStartTime = Time.time;
+        }
 
         // Continuous smooth random left and right movement using SmoothDamp
         float targetZPosition = originalZ + Random.Range(-horizontalMagnitude, horizontalMagnitude);
@@ -78,10 +97,49 @@ public class Mover : MonoBehaviour
 
         isPoked = true;  // Set flag to indicate the object is poked
 
+        float hitTime = 0f;
+        hitHeight = transform.position.y;  // Record the height at which the object was hit
+
         if (ScoreManager.Instance != null)
         {
-            ScoreManager.Instance.AddPoints(basePoints + extraPoints);  // Add points to the score
+            int timeBonus = 0;
+
+            if (!isSpecial)
+            {
+                if (trackStartTime == 0f)
+                {
+                    // Calculate hit time based on the height difference
+                    float heightDifference = targetHeight - transform.position.y;
+                    hitTime = heightDifference / maxVerticalSpeed;  // Assuming constant speed
+
+                    // If the object is poked before it slows down, give maximum bonus points
+                    timeBonus = 10;
+                }
+                else
+                {
+                    // Calculate the time taken to hit the target after it reached the trackHitHeight
+                    hitTime = Time.time - trackStartTime;
+
+                    // Calculate bonus points based on time taken to hit the target
+                    if (hitTime <= 5f)
+                    {
+                        timeBonus = 10;
+                    }
+                    else if (hitTime <= 5.5f)
+                    {
+                        timeBonus = 5;
+                    }
+                }
+                ScoreManager.Instance.UpdateAverageHitTime(hitTime);
+            }
+
+            // Add points to the score
+            ScoreManager.Instance.AddPoints(basePoints + extraPoints + timeBonus);
         }
+
+        ScoreManager.Instance.UpdateAverageHitHeight(hitHeight);
+
+        //Debug.Log("Hit time: " + hitTime + "\n" + "Hit height: " + hitHeight);
 
         // Instantiate the animation GameObject and destroy it after 1 second
         if (animationPrefab != null)
@@ -101,5 +159,10 @@ public class Mover : MonoBehaviour
     public void SetHorizontalMagnitude(float newHorizontalMagnitude)
     {
         horizontalMagnitude = newHorizontalMagnitude;
+    }
+
+    public void SetSpecial(bool special)
+    {
+        isSpecial = special;
     }
 }

@@ -1,16 +1,21 @@
 using UnityEngine;
-using TMPro;  // Add this to access TextMeshPro components
+using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
-    public static ScoreManager Instance;  // Singleton instance of the Score Manager
-
+    public static ScoreManager Instance;
     public TextMeshProUGUI scoreText;     // Reference to the TextMeshProUGUI component
-    public int Score { get; private set; }  // Current score
+    public int Score { get; private set; }
+    private bool loggingEnabled = false;
+    private int totalPoints;
+    private float totalHitTime;
+    private float totalHitHeight;
+    private int hitCount;
 
     private void Awake()
     {
-        // Ensure that there is only one instance of the Score Manager
+        if (scoreText != null) scoreText.text = "" + 0;
+
         if (Instance == null)
         {
             Instance = this;
@@ -19,19 +24,38 @@ public class ScoreManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
-        // Initialize the score text if it's assigned
-        if (scoreText != null)
-            scoreText.text = "" + 0;
     }
 
-    // Method to add points to the score
     public void AddPoints(int points)
     {
         Score += points;  // Update the score
-        
-        // Update the TextMeshPro text
-        if (scoreText != null)
-            scoreText.text = Score.ToString();
+
+        if (scoreText != null) scoreText.text = Score.ToString();
+
+        totalPoints += points;
+        if (loggingEnabled) Debug.Log("Total Points: " + totalPoints);
+    }
+
+    public void UpdateAverageHitTime(float hitTime)
+    {
+        totalHitTime += hitTime;
+        hitCount++;
+        if (loggingEnabled) Debug.Log("Average Hit Time: " + GetAverageHitTime() + " seconds");
+    }
+
+    public void UpdateAverageHitHeight(float hitHeight)
+    {
+        totalHitHeight += hitHeight;
+        if (loggingEnabled) Debug.Log("Average Hit Height: " + GetAverageHitHeight() + " meters");
+    }
+
+    public float GetAverageHitTime()
+    {
+        return hitCount > 0 ? totalHitTime / hitCount : 0f;
+    }
+
+    public float GetAverageHitHeight()
+    {
+        return hitCount > 0 ? totalHitHeight / hitCount : 0f;
     }
 }

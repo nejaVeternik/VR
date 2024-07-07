@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class ControllerMovementLogger : MonoBehaviour
 {
+    public bool loggingEnabled = false;
     public OVRInput.Controller controller; // Select the controller (e.g., OVRInput.Controller.RTouch)
     public int bufferSize = 1000; // Set the size of the circular buffer
     private MovementData[] movementDataBuffer;
@@ -46,10 +47,9 @@ public class ControllerMovementLogger : MonoBehaviour
             // Move to the next index in the buffer
             bufferIndex = (bufferIndex + 1) % bufferSize;
 
-            // Log the velocity
-            Debug.Log($"Controller Velocity: {controllerVelocity.magnitude} m/s");
+            if (loggingEnabled) Debug.Log($"Controller Velocity: {controllerVelocity.magnitude} m/s");
         }
-        DisplayMovementStats();
+        if (loggingEnabled) DisplayMovementStats();
     }
 
     // Class to store movement data

@@ -81,12 +81,14 @@ public class Spawner : MonoBehaviour
                 mover.extraPoints = bonusPoints;
                 mover.SetSpeed(mover.verticalSpeed * specialSpeedMultiplier);  // Set a higher speed for special objects
                 mover.SetHorizontalMagnitude(mover.horizontalMagnitude * specialHorizontalMagnitudeMultiplier);  // Set a higher horizontal magnitude for special objects
+                mover.SetSpecial(true);  // Mark the object as special
             }
         }
         else if (mover != null)
         {
             mover.SetSpeed(mover.verticalSpeed);  // Set default speed for normal objects
             mover.SetHorizontalMagnitude(mover.horizontalMagnitude);  // Set default horizontal magnitude for normal objects
+            mover.SetSpecial(false);  // Mark the object as normal
         }
     }
 
