@@ -2084,10 +2084,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd4041de5bf79f646900f2161b608d69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  usernameInputField: {fileID: 0}
-  passwordInputField: {fileID: 0}
+  usernameInputField: {fileID: 1900508500}
+  passwordInputField: {fileID: 890972294}
   registerButton: {fileID: 0}
-  loginButton: {fileID: 0}
+  loginButton: {fileID: 165074929}
 --- !u!4 &332698515
 Transform:
   m_ObjectHideFlags: 0
@@ -3309,7 +3309,19 @@ MonoBehaviour:
       m_Calls: []
   m_OnSelect:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 332698514}
+        m_TargetAssemblyTypeName: UserAuthManager, Assembly-CSharp
+        m_MethodName: ShowKeyboard
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnDeselect:
     m_PersistentCalls:
       m_Calls: []

@@ -3,9 +3,9 @@ using Oculus.Interaction;
 
 public class Mover : MonoBehaviour
 {
-    public float verticalSpeed = 5f;  // Constant vertical speed (upward movement)
+    public float verticalSpeed = 5f;  // Default constant vertical speed (upward movement)
     public float targetHeight = 4f;  // Height at which to stop accelerating
-    public float horizontalMagnitude = 0.5f;  // Maximum horizontal deviation
+    public float horizontalMagnitude = 0.5f;  // Default maximum horizontal deviation
     public float rotationSpeed = 90f;  // Rotation speed in degrees per second (around the Z-axis)
     public float maxVerticalSpeed = 10f;  // Maximum vertical speed after acceleration
     public float smoothTime = 1.0f;  // Smooth time for horizontal movement
@@ -91,5 +91,15 @@ public class Mover : MonoBehaviour
         }
 
         Destroy(gameObject);
+    }
+
+    public void SetSpeed(float newSpeed)
+    {
+        verticalSpeed = newSpeed;
+    }
+
+    public void SetHorizontalMagnitude(float newHorizontalMagnitude)
+    {
+        horizontalMagnitude = newHorizontalMagnitude;
     }
 }

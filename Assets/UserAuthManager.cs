@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class UserAuthManager : MonoBehaviour
 {
@@ -76,6 +77,7 @@ public class UserAuthManager : MonoBehaviour
         if (request.result == UnityWebRequest.Result.Success)
         {
             Debug.Log("User logged in successfully: " + request.downloadHandler.text);
+            SceneManager.LoadScene("Menu");
         }
         else
         {

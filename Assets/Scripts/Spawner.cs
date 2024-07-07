@@ -14,7 +14,9 @@ public class Spawner : MonoBehaviour
     public float lineOffset = 2f;  // Distance between two lines of objects
     public Material specialMaterial;  // New Material for special objects
     public int bonusPoints = 20;  // Extra points for special objects
-    public float specialChance = 0.1f; 
+    public float specialChance = 0.1f;
+    public float specialSpeedMultiplier = 1.2f;  // Speed multiplier for special objects
+    public float specialHorizontalMagnitudeMultiplier = 1.5f;  // Horizontal magnitude multiplier for special objects
 
     private List<GameObject> spawnedObjects = new List<GameObject>();  // List to track active objects
     private ControllerManager controllerManager;
@@ -60,6 +62,7 @@ public class Spawner : MonoBehaviour
 
     private void SetupObject(GameObject obj, bool isSpecial)
     {
+        var mover = obj.GetComponent<Mover>();
         if (isSpecial)
         {
             Renderer plateVisualRenderer = obj.transform.Find("Visuals/PlateVisual/rozatutorialv2").GetComponent<Renderer>();
@@ -73,11 +76,17 @@ public class Spawner : MonoBehaviour
                 Debug.LogError("Renderer not found in the instantiated object!");
             }
 
-            var pokeable = obj.GetComponent<Mover>();
-            if (pokeable != null)
+            if (mover != null)
             {
-                pokeable.extraPoints = bonusPoints;
+                mover.extraPoints = bonusPoints;
+                mover.SetSpeed(mover.verticalSpeed * specialSpeedMultiplier);  // Set a higher speed for special objects
+                mover.SetHorizontalMagnitude(mover.horizontalMagnitude * specialHorizontalMagnitudeMultiplier);  // Set a higher horizontal magnitude for special objects
             }
+        }
+        else if (mover != null)
+        {
+            mover.SetSpeed(mover.verticalSpeed);  // Set default speed for normal objects
+            mover.SetHorizontalMagnitude(mover.horizontalMagnitude);  // Set default horizontal magnitude for normal objects
         }
     }
 
