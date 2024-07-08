@@ -5,7 +5,7 @@ public class Mover : MonoBehaviour
 {
     public float verticalSpeed = 5f;  // Default constant vertical speed (upward movement)
     public float targetHeight = 4f;  // Height at which to stop accelerating
-    public float horizontalMagnitude = 0.5f;  // Default maximum horizontal deviation
+    public float horizontalMagnitude = 2.5f;  // Default maximum horizontal deviation
     public float rotationSpeed = 90f;  // Rotation speed in degrees per second (around the Z-axis)
     public float maxVerticalSpeed = 10f;  // Maximum vertical speed after acceleration
     public float smoothTime = 1.0f;  // Smooth time for horizontal movement
@@ -26,6 +26,7 @@ public class Mover : MonoBehaviour
     private bool isSpecial = false;  // Flag to check if the object is special
     private float trackStartTime;  // Time when the object reaches trackHitHeight
     private float hitHeight;  // Height at which the object was hit
+    private LevelManager levelManager;
 
     void Awake()
     {
@@ -38,6 +39,7 @@ public class Mover : MonoBehaviour
 
     private void Start()
     {
+        levelManager = FindObjectOfType<LevelManager>();
         controllerManager = FindObjectOfType<ControllerManager>();
         originalZ = transform.position.z;  // Remember the original Z position at start
         currentSpeed = verticalSpeed;  // Set the initial upward speed
@@ -92,6 +94,8 @@ public class Mover : MonoBehaviour
 
     private void OnPoked(PokeInteractor pokeInteractor)
     {
+        if (levelManager != null) levelManager.OnObjectHit();
+        
         if (controllerManager != null && controllerManager.IsPaused()) return;
         if (isPoked) return;
 
@@ -158,6 +162,13 @@ public class Mover : MonoBehaviour
 
     public void SetHorizontalMagnitude(float newHorizontalMagnitude)
     {
+        horizontalMagnitude = newHorizontalMagnitude;
+    }
+
+    public void SetProperties(float newVerticalSpeed, float newMaxVerticalSpeed, float newHorizontalMagnitude)
+    {
+        verticalSpeed = newVerticalSpeed;
+        maxVerticalSpeed = newMaxVerticalSpeed;
         horizontalMagnitude = newHorizontalMagnitude;
     }
 

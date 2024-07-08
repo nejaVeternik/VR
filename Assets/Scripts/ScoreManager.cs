@@ -58,4 +58,9 @@ public class ScoreManager : MonoBehaviour
     {
         return hitCount > 0 ? totalHitHeight / hitCount : 0f;
     }
+
+    public void DisplayGameFinished()
+    {
+        scoreText.text = "Game Finished! Final Score: " + Score.ToString();
+    }
 }

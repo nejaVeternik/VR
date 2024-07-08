@@ -20,16 +20,24 @@ public class Spawner : MonoBehaviour
 
     private List<GameObject> spawnedObjects = new List<GameObject>();  // List to track active objects
     private ControllerManager controllerManager;
+    private LevelManager levelManager;
+    private bool isSpawningStopped = false;
 
     private void Start()
     {
         controllerManager = FindObjectOfType<ControllerManager>();
+        levelManager = FindObjectOfType<LevelManager>();
+        if (levelManager == null || levelManager.levels.Count == 0)
+        {
+            Debug.LogError("LevelManager not found or no levels defined.");
+            return;
+        }
         StartCoroutine(SpawnObject());
     }
 
     private IEnumerator SpawnObject()
     {
-        while (true)
+        while (!isSpawningStopped)
         {
             if (controllerManager != null && controllerManager.IsPaused())
             {
@@ -63,6 +71,7 @@ public class Spawner : MonoBehaviour
     private void SetupObject(GameObject obj, bool isSpecial)
     {
         var mover = obj.GetComponent<Mover>();
+        Level currentLevel = levelManager.levels[levelManager.getCurrentLevel()];
         if (isSpecial)
         {
             Renderer plateVisualRenderer = obj.transform.Find("Visuals/PlateVisual/rozatutorialv2").GetComponent<Renderer>();
@@ -79,21 +88,24 @@ public class Spawner : MonoBehaviour
             if (mover != null)
             {
                 mover.extraPoints = bonusPoints;
-                mover.SetSpeed(mover.verticalSpeed * specialSpeedMultiplier);  // Set a higher speed for special objects
-                mover.SetHorizontalMagnitude(mover.horizontalMagnitude * specialHorizontalMagnitudeMultiplier);  // Set a higher horizontal magnitude for special objects
-                mover.SetSpecial(true);  // Mark the object as special
+                mover.SetProperties(currentLevel.verticalSpeed * specialSpeedMultiplier, currentLevel.maxVerticalSpeed * specialSpeedMultiplier, currentLevel.horizontalMagnitude * specialHorizontalMagnitudeMultiplier);
+                mover.SetSpecial(true);
             }
         }
         else if (mover != null)
         {
-            mover.SetSpeed(mover.verticalSpeed);  // Set default speed for normal objects
-            mover.SetHorizontalMagnitude(mover.horizontalMagnitude);  // Set default horizontal magnitude for normal objects
-            mover.SetSpecial(false);  // Mark the object as normal
+            mover.SetProperties(currentLevel.verticalSpeed, currentLevel.maxVerticalSpeed, currentLevel.horizontalMagnitude);
+            mover.SetSpecial(false);
         }
     }
 
     private void CleanupObjects()
     {
         spawnedObjects.RemoveAll(item => item == null);  // Clean up list to remove destroyed objects
+    }
+
+    public void StopSpawning()
+    {
+        isSpawningStopped = true;
     }
 }

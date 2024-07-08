@@ -17584,7 +17584,7 @@ GameObject:
   - component: {fileID: 1555358470}
   - component: {fileID: 1555358469}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Tracking
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17602,6 +17602,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfcee0915e4feb6489e12eb841174796, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loggingEnabled: 0
   controller: 2
   bufferSize: 1000
 --- !u!4 &1555358470
@@ -23542,6 +23543,7 @@ GameObject:
   - component: {fileID: 1995642418}
   - component: {fileID: 1995642417}
   - component: {fileID: 1995642419}
+  - component: {fileID: 1995642420}
   m_Layer: 0
   m_Name: Scripts
   m_TagString: Untagged
@@ -23603,6 +23605,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 1270942050}
+--- !u!114 &1995642420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1995642416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a34e8cbe2b997a4b97936910fd1e9cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levels:
+  - spawnInterval: 1.5
+    maxObjects: 30
+    specialChance: 0.1
+    verticalSpeed: 0.05
+    maxVerticalSpeed: 0.25
+    horizontalMagnitude: 2.5
+    objectsToHitForNextLevel: 10
+  - spawnInterval: 1
+    maxObjects: 20
+    specialChance: 0.05
+    verticalSpeed: 0.07
+    maxVerticalSpeed: 0.35
+    horizontalMagnitude: 5
+    objectsToHitForNextLevel: 10
+  - spawnInterval: 0.5
+    maxObjects: 10
+    specialChance: 0.01
+    verticalSpeed: 0.2
+    maxVerticalSpeed: 0.5
+    horizontalMagnitude: 10
+    objectsToHitForNextLevel: 10
 --- !u!4 &1996009410 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5166544052048882449, guid: 82b2c64f4e2d5264bbf0f909cadda2fa,
