@@ -11,6 +11,7 @@ public class ScoreManager : MonoBehaviour
     private float totalHitTime;
     private float totalHitHeight;
     private int hitCount;
+    private bool gameFinished = false;
 
     private void Awake()
     {
@@ -28,6 +29,8 @@ public class ScoreManager : MonoBehaviour
 
     public void AddPoints(int points)
     {
+        if (gameFinished) return;
+
         Score += points;  // Update the score
 
         if (scoreText != null) scoreText.text = Score.ToString();
@@ -59,8 +62,15 @@ public class ScoreManager : MonoBehaviour
         return hitCount > 0 ? totalHitHeight / hitCount : 0f;
     }
 
+    public int GetScore()
+    {
+        return Score;
+    }
+
     public void DisplayGameFinished()
     {
-        scoreText.text = "Game Finished! Final Score: " + Score.ToString();
+        gameFinished = true;
+        
+        //scoreText.text = "Game Finished! Final Score: " + Score.ToString();
     }
 }

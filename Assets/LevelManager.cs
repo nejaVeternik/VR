@@ -1,9 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
     public List<Level> levels;
+    public GameObject menu;
+    public TextMeshProUGUI scoreText;
     private int currentLevelIndex = 0;
     private int objectsHitInCurrentLevel = 0;
 
@@ -71,6 +75,8 @@ public class LevelManager : MonoBehaviour
         DestroyAllActiveObjects();
         Debug.Log("Game Finished!");
         ScoreManager.Instance.DisplayGameFinished();
+        menu.SetActive(true);
+        if (scoreText != null) scoreText.text = "Igra zakljucena. Rezultat: " + ScoreManager.Instance.GetScore().ToString();
     }
 
     private void DestroyAllActiveObjects()
@@ -91,5 +97,10 @@ public class LevelManager : MonoBehaviour
     public int getCurrentLevel()
     {
         return currentLevelIndex;
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("Park");
     }
 }
