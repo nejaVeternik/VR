@@ -7,7 +7,7 @@ public class ButtonsGame : MonoBehaviour
 {
     private Transform currentParent;
     private PokeInteractable button;
-    public int basePoints = 10;               // Default points for normal objects
+    public int basePoints = 10; // Default points for normal objects
     public int extraPoints = 0;
     private Light light;
 
@@ -38,18 +38,9 @@ public class ButtonsGame : MonoBehaviour
 
     private void OnPoked(PokeInteractor pokeInteractor)
     {
-        if (Buttons.Instance != null && Buttons.Instance.IsCurrentLight(light))
+        if (Buttons.Instance != null)
         {
-            if (ScoreManagerGait.Instance != null)
-            {
-                ScoreManagerGait.Instance.AddPoints(basePoints + extraPoints);  // Add points to the score
-            }
-
-            light.enabled = false; // Disable the Light component
-
-            Buttons.Instance.LightUpRandomLight(); // Select the next random light
+            Buttons.Instance.OnLightPressed(light);
         }
-
-        Debug.Log("Poked the correct light!");
     }
 }

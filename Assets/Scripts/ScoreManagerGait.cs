@@ -3,17 +3,19 @@ using TMPro;
 
 public class ScoreManagerGait : MonoBehaviour
 {
-    public static ScoreManagerGait Instance;  // Singleton instance of the Score Manager
+    public static ScoreManagerGait Instance;
 
-    public TextMeshProUGUI scoreText;  // Reference to the TextMeshProUGUI component
+    public TextMeshProUGUI scoreText;
     public TextMeshProUGUI scoreText1;
-    public int Score { get; private set; }  // Current score
+    public TextMeshProUGUI levelText;
+    public TextMeshProUGUI levelText1;
+    public int Score { get; private set; }
 
     private ControllerManager controllerManager;
+    private Buttons buttonsInstance;
 
     private void Awake()
     {
-        // Ensure that there is only one instance of the Score Manager
         if (Instance == null)
         {
             Instance = this;
@@ -23,7 +25,6 @@ public class ScoreManagerGait : MonoBehaviour
             Destroy(gameObject);
         }
 
-        // Initialize the score text if it's assigned
         if (scoreText != null)
             scoreText.text = "" + 0;
 
@@ -34,21 +35,33 @@ public class ScoreManagerGait : MonoBehaviour
     private void Start()
     {
         controllerManager = FindObjectOfType<ControllerManager>();
+        buttonsInstance = Buttons.Instance;
     }
 
-    // Method to add points to the score
     public void AddPoints(int points)
     {
-        // Check if the game is paused
         if (controllerManager != null && controllerManager.IsPaused()) return;
 
-        Score += points;  // Update the score
+        Score += points;
 
-        // Update the TextMeshPro text
         if (scoreText != null)
             scoreText.text = Score.ToString();
 
         if (scoreText1 != null)
             scoreText1.text = Score.ToString();
+
+        // Trigger next level based on score threshold
+        if (Score == 20)
+        {
+            if (levelText != null) levelText.text = "Nivo 2";
+            if (levelText1 != null) levelText1.text = "Nivo 2";
+            buttonsInstance.NextLevel();
+        }
+        else if (Score == 40) // Assuming level 3 starts at 40 points
+        {
+            if (levelText != null) levelText.text = "Nivo 3";
+            if (levelText1 != null) levelText1.text = "Nivo 3";
+            buttonsInstance.NextLevel();
+        }
     }
 }
