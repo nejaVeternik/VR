@@ -18,7 +18,7 @@ public class ControllerManager : MonoBehaviour
     {
         if ((OVRInput.GetUp(OVRInput.Button.One) || OVRInput.GetUp(OVRInput.Button.Start)))
         {
-            if (isPaused == false)
+            if (!isPaused)
             {
                 PauseGame();
             }
@@ -29,7 +29,7 @@ public class ControllerManager : MonoBehaviour
     {
         isPaused = true;
         Time.timeScale = 0;
-        PositionMenuInFrontOfPlayer();
+        PositionMenuInFrontOfPlayer(menu);
         menu.SetActive(true);
     }
 
@@ -55,9 +55,9 @@ public class ControllerManager : MonoBehaviour
         return isPaused;
     }
 
-    private void PositionMenuInFrontOfPlayer()
+    public void PositionMenuInFrontOfPlayer(GameObject targetMenu)
     {
-        if (ovrCameraRig != null && menu != null)
+        if (ovrCameraRig != null && targetMenu != null)
         {
             // Calculate the new position in front of the player's view
             Vector3 forward = ovrCameraRig.forward;
@@ -68,11 +68,11 @@ public class ControllerManager : MonoBehaviour
             // Clamp the new position within the torus bounds (ignore Y for bounds)
             newPosition = ClampPositionWithinTorus(newPosition);
 
-            menu.transform.position = newPosition;
+            targetMenu.transform.position = newPosition;
 
             // Rotate the menu to face the player
-            menu.transform.LookAt(ovrCameraRig);
-            menu.transform.Rotate(0, 180, 0); // Rotate to face the player correctly
+            targetMenu.transform.LookAt(new Vector3(ovrCameraRig.position.x, targetMenu.transform.position.y, ovrCameraRig.position.z));
+            targetMenu.transform.Rotate(0, 180, 0); // Rotate to face the player correctly
         }
     }
 
