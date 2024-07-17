@@ -4165,7 +4165,7 @@ MonoBehaviour:
   ovrCameraRig: {fileID: 1842064758}
   menuDistance: 0.5
   torusCenter: {x: -0.263, y: -1.019, z: 0.508}
-  torusRadius: 0.46
+  torusRadius: 0.7
 --- !u!4 &1358436124
 Transform:
   m_ObjectHideFlags: 0
