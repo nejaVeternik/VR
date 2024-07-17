@@ -108,7 +108,7 @@ public class Buttons : MonoBehaviour
             else // Move up and down
             {
                 float amplitude = 0.1f; // Amplitude of 0.1 units for a total bounce height of 0.2 units
-                newPosition.y = initialPosition.y + Mathf.PingPong(Time.time * moveSpeed , amplitude * 2f) - amplitude;
+                newPosition.y = initialPosition.y + Mathf.PingPong(Time.time * moveSpeed, amplitude * 2f) - amplitude;
             }
 
             obj.transform.position = newPosition;
@@ -175,6 +175,12 @@ public class Buttons : MonoBehaviour
 
     public void OnLightPressed(Light pressedLight)
     {
+        if (!lightUpTimes.ContainsKey(pressedLight))
+        {
+            Debug.LogWarning("Pressed light not found in lightUpTimes dictionary.");
+            return;
+        }
+
         float reactionTime = Time.time - (currentLevel == 2 ? lastPressTime : lightUpTimes[pressedLight]); // Calculate reaction time based on level
         TrackerController.Instance.RecordReactionTime(reactionTime); // Send reaction time to controller
 
@@ -205,9 +211,11 @@ public class Buttons : MonoBehaviour
                     int level2Points = CalculatePoints(averageReactionTime);
                     ScoreManagerGait.Instance.AddPoints(level2Points);
                     ScoreManagerGait.Instance.IncrementGroupsPressedInLevel2(); // Track groups pressed
+
                     // Clear pressTimes and lightUpTimes for next group
                     pressTimes.Clear();
                     lightUpTimes.Clear();
+
                     LightUpRandomLight(); // Light up another set of lights
                 }
                 else
