@@ -6936,7 +6936,7 @@ MonoBehaviour:
   maxY: 1.5
   blinkInterval: 0.5
   moveSpeed: 0.5
-  circleRadius: 0.05
+  circleRadius: 0.1
 --- !u!114 &1913215576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6955,9 +6955,9 @@ MonoBehaviour:
   levelText1: {fileID: 1561503481}
   endGameScoreText: {fileID: 518842289}
   gameFinishedMenu: {fileID: 1230056030}
-  lightsToPressForLevel2: 3
-  groupsToPressForLevel3: 2
-  lightsToPressToEndGame: 3
+  lightsToPressForLevel2: 8
+  groupsToPressForLevel3: 4
+  lightsToPressToEndGame: 6
 --- !u!1001 &1915761157
 PrefabInstance:
   m_ObjectHideFlags: 0

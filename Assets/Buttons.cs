@@ -24,6 +24,7 @@ public class Buttons : MonoBehaviour
     private Dictionary<GameObject, Vector3> initialPositions = new Dictionary<GameObject, Vector3>(); // Track initial positions for circular motion
     private bool isGameFinished = false; // Flag to stop lighting up lights
     private Dictionary<Light, float> lightUpTimes = new Dictionary<Light, float>(); // Track the time when each light is lit up
+    private Dictionary<Light, float> pressTimes = new Dictionary<Light, float>(); // Track the time when each light is pressed
     private float lastPressTime; // Track the time of the last press in level 2
 
     private int currentLevel = 1;
@@ -101,13 +102,13 @@ public class Buttons : MonoBehaviour
 
             if (movementType[obj]) // Circular motion in the y-z plane
             {
-                newPosition.y += Mathf.Cos(Time.time * moveSpeed + offset) * circleRadius;
-                newPosition.z += Mathf.Sin(Time.time * moveSpeed + offset) * circleRadius;
+                newPosition.y += Mathf.Cos(Time.time * (moveSpeed * 8) + offset) * circleRadius;
+                newPosition.z += Mathf.Sin(Time.time * (moveSpeed * 8) + offset) * circleRadius;
             }
             else // Move up and down
             {
                 float amplitude = 0.1f; // Amplitude of 0.1 units for a total bounce height of 0.2 units
-                newPosition.y = initialPosition.y + Mathf.PingPong(Time.time * moveSpeed, amplitude * 2f) - amplitude;
+                newPosition.y = initialPosition.y + Mathf.PingPong(Time.time * moveSpeed , amplitude * 2f) - amplitude;
             }
 
             obj.transform.position = newPosition;
@@ -179,8 +180,7 @@ public class Buttons : MonoBehaviour
 
         if (currentLevel == 2)
         {
-            int points = CalculatePoints(reactionTime);
-            ScoreManagerGait.Instance.AddPoints(points); // Add points based on reaction time
+            pressTimes[pressedLight] = Time.time; // Record the press time for level 2
         }
 
         if (currentLevel == 2)
@@ -193,10 +193,21 @@ public class Buttons : MonoBehaviour
 
                 if (activeLights.Count == 0)
                 {
-                    // Special scoring for level 2 after all lights of the same color are pressed
-                    int level2Points = CalculateLevel2Points();
+                    // Calculate the average reaction time for level 2
+                    float totalReactionTime = 0f;
+                    foreach (var pressTime in pressTimes)
+                    {
+                        totalReactionTime += pressTime.Value - lightUpTimes[pressTime.Key];
+                    }
+                    float averageReactionTime = totalReactionTime / pressTimes.Count;
+
+                    // Special scoring for level 2 based on average reaction time
+                    int level2Points = CalculatePoints(averageReactionTime);
                     ScoreManagerGait.Instance.AddPoints(level2Points);
                     ScoreManagerGait.Instance.IncrementGroupsPressedInLevel2(); // Track groups pressed
+                    // Clear pressTimes and lightUpTimes for next group
+                    pressTimes.Clear();
+                    lightUpTimes.Clear();
                     LightUpRandomLight(); // Light up another set of lights
                 }
                 else
@@ -227,17 +238,6 @@ public class Buttons : MonoBehaviour
                 LightUpRandomLight();
             }
         }
-    }
-
-    private int CalculateLevel2Points()
-    {
-        int totalPoints = 0;
-        foreach (var light in lightUpTimes)
-        {
-            float reactionTime = Time.time - light.Value;
-            totalPoints += CalculatePoints(reactionTime);
-        }
-        return totalPoints;
     }
 
     private int CalculatePoints(float reactionTime)
