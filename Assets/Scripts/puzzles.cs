@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class MemoryGame : MonoBehaviour
 {
@@ -13,7 +14,10 @@ public class MemoryGame : MonoBehaviour
     public TextMeshProUGUI matchesText;
     public TextMeshProUGUI attemptsText;
     public TextMeshProUGUI timeText;
+    public TextMeshProUGUI endGameScoreText; // Reference to the score text in the end game menu
+    public GameObject gameFinishedMenu; // Reference to the game finished menu
 
+    private ControllerManager controllerManager;
     private GameObject firstSelectedQuad = null;
     private GameObject secondSelectedQuad = null;
     private IEnumerator coroutine;
@@ -189,8 +193,20 @@ public class MemoryGame : MonoBehaviour
         gameWon = true;
         disable = true;
 
-        scoreText.text = "REZULTAT: " + score.ToString();
+        scoreText.text = score.ToString();
         timeText.text = timeElapsed.ToString("F2");
+
+        if (controllerManager != null && gameFinishedMenu != null)
+        {
+            // Update the score text in the end game menu
+            if (endGameScoreText != null)
+            {
+                endGameScoreText.text = "Igra zakljucena. Rezultat: " + score.ToString();
+            }
+
+            controllerManager.PositionMenuInFrontOfPlayer(gameFinishedMenu);
+            gameFinishedMenu.SetActive(true);
+        }
     }
 
     void AddPoints(int points)
@@ -201,5 +217,10 @@ public class MemoryGame : MonoBehaviour
             score = 0;
         }
         UpdateStatsDisplay();
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("Memory");
     }
 }

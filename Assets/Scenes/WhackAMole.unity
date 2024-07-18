@@ -295,6 +295,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menu: {fileID: 115332751}
+  ovrCameraRig: {fileID: 0}
+  menuDistance: 1.5
+  torusCenter: {x: 0, y: 0, z: 0}
+  torusRadius: 1.8
 --- !u!4 &129592017
 Transform:
   m_ObjectHideFlags: 0
@@ -2777,7 +2781,7 @@ PrefabInstance:
     - target: {fileID: 2514675399181695721, guid: f54012181eacade4ea242c65f804720f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.905
+      value: -0.462
       objectReference: {fileID: 0}
     - target: {fileID: 2514675399181695721, guid: f54012181eacade4ea242c65f804720f,
         type: 3}
@@ -5166,6 +5170,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menu: {fileID: 115332751}
+  ovrCameraRig: {fileID: 0}
+  menuDistance: 1.5
+  torusCenter: {x: 0, y: 0, z: 0}
+  torusRadius: 1.8
 --- !u!1001 &1114961028
 PrefabInstance:
   m_ObjectHideFlags: 0
