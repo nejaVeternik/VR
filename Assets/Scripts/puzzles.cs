@@ -41,42 +41,33 @@ public class MemoryGame : MonoBehaviour
             timeElapsed += Time.deltaTime;
             UpdateStatsDisplay();
         }
-
-        CheckControllerInput(OVRInput.Controller.RTouch);
-        CheckControllerInput(OVRInput.Controller.LTouch);
     }
 
-    private void CheckControllerInput(OVRInput.Controller controller)
+
+    public void CubeSelected(GameObject hitted) 
     {
-        Vector3 controllerPosition = cameraRig.transform.TransformPoint(OVRInput.GetLocalControllerPosition(controller));
-        Vector3 controllerForward = cameraRig.transform.TransformDirection(OVRInput.GetLocalControllerRotation(controller) * Vector3.forward);
-
-        Ray ray = new Ray(controllerPosition, controllerForward);
-        RaycastHit hit;
-
-        if (!disable && OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, controller))
+        if (!disable)
         {
-            if (Physics.Raycast(ray, out hit))
+            GameObject hitCube = hitted;
+            GameObject selectedCube = IsCube(hitCube);
+
+            if (selectedCube != null && !matchedCubes.Contains(selectedCube))
             {
-                GameObject hitCube = hit.collider.gameObject;
-                GameObject selectedCube = IsCube(hitCube);
+                selectedCube.transform.Rotate(0, 180, 0);
+                GameObject selectedQuad = selectedCube.transform.GetChild(0).gameObject;
+                Debug.Log("Succesful");
 
-                if (selectedCube != null && !matchedCubes.Contains(selectedCube))
+                if (firstSelectedQuad == null)
                 {
-                    selectedCube.transform.Rotate(0, 180, 0);
-                    GameObject selectedQuad = selectedCube.transform.GetChild(0).gameObject;
-
-                    if (firstSelectedQuad == null)
-                    {
-                        firstSelectedQuad = selectedCube;
-                    }
-                    else if (secondSelectedQuad == null)
-                    {
-                        secondSelectedQuad = selectedCube;
-                        CheckPair();
-                    }
+                    firstSelectedQuad = selectedCube;
+                }
+                else if (secondSelectedQuad == null)
+                {
+                    secondSelectedQuad = selectedCube;
+                    CheckPair();
                 }
             }
+            
         }
     }
 
