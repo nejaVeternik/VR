@@ -12,6 +12,12 @@ public class ControllerManager : MonoBehaviour
     public float torusRadius = 1.8f; // Radius of the torus bounds
 
     private bool isPaused = false;
+    public Spawner spawner; // Reference to the Spawner
+
+    private void Start()
+    {
+        spawner = Spawner.Instance;
+    }
 
     // Update is called once per frame
     void Update()
@@ -31,6 +37,10 @@ public class ControllerManager : MonoBehaviour
         Time.timeScale = 0;
         PositionMenuInFrontOfPlayer(menu);
         menu.SetActive(true);
+        if (spawner != null)
+        {
+            spawner.DisableAllObjects();
+        }
     }
 
     public void ContinueGame()
@@ -41,6 +51,11 @@ public class ControllerManager : MonoBehaviour
             menu.SetActive(false);
             isPaused = false;
         }
+        if (spawner != null)
+        {
+            spawner.EnableAllObjects();
+        }
+        
     }
 
     public void ToMainMenu()

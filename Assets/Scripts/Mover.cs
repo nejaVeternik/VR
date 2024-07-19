@@ -27,6 +27,7 @@ public class Mover : MonoBehaviour
     private float trackStartTime;  // Time when the object reaches trackHitHeight
     private float hitHeight;  // Height at which the object was hit
     private LevelManager levelManager;
+     private bool isPaused = false; // Add this variable to track pause state
 
     void Awake()
     {
@@ -49,7 +50,7 @@ public class Mover : MonoBehaviour
     void Update()
     {
         if (controllerManager != null && controllerManager.IsPaused()) return;
-        if (isPoked) return;  // Skip updates if the object is poked
+        if (isPoked || isPaused) return;  // Skip updates if the object is poked or paused
 
         checkForRemoval();
 
@@ -176,4 +177,17 @@ public class Mover : MonoBehaviour
     {
         isSpecial = special;
     }
+
+    public void Disable()
+    {
+        isPaused = true;
+        gameObject.SetActive(false);
+    }
+
+    public void Enable()
+    {
+        isPaused = false;
+        gameObject.SetActive(true);
+    }
 }
+

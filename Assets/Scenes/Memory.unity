@@ -253,7 +253,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1825364710}
         m_TargetAssemblyTypeName: MemoryGame, Assembly-CSharp
-        m_MethodName: bu
+        m_MethodName: CubeSelected
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 17787827}
@@ -741,7 +741,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1825364710}
         m_TargetAssemblyTypeName: MemoryGame, Assembly-CSharp
-        m_MethodName: bu
+        m_MethodName: CubeSelected
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 223844704}
@@ -1202,7 +1202,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1825364710}
         m_TargetAssemblyTypeName: MemoryGame, Assembly-CSharp
-        m_MethodName: bu
+        m_MethodName: CubeSelected
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 281681030}
@@ -1950,7 +1950,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1825364710}
         m_TargetAssemblyTypeName: MemoryGame, Assembly-CSharp
-        m_MethodName: bu
+        m_MethodName: CubeSelected
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 427453670}
@@ -2449,7 +2449,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1825364710}
         m_TargetAssemblyTypeName: MemoryGame, Assembly-CSharp
-        m_MethodName: bu
+        m_MethodName: CubeSelected
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 477634051}
@@ -2678,7 +2678,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1825364710}
         m_TargetAssemblyTypeName: MemoryGame, Assembly-CSharp
-        m_MethodName: bu
+        m_MethodName: CubeSelected
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 496591477}
@@ -3013,7 +3013,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1825364710}
         m_TargetAssemblyTypeName: MemoryGame, Assembly-CSharp
-        m_MethodName: bu
+        m_MethodName: CubeSelected
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 512648769}
@@ -3670,7 +3670,7 @@ PrefabInstance:
     - target: {fileID: 7114770129336771049, guid: df64bf5efda75be4db0c812f9277d678,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.72
+      value: 1.04
       objectReference: {fileID: 0}
     - target: {fileID: 7114770129336771049, guid: df64bf5efda75be4db0c812f9277d678,
         type: 3}
@@ -4345,7 +4345,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1825364710}
         m_TargetAssemblyTypeName: MemoryGame, Assembly-CSharp
-        m_MethodName: bu
+        m_MethodName: CubeSelected
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 763239878}
@@ -5129,7 +5129,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1825364710}
         m_TargetAssemblyTypeName: MemoryGame, Assembly-CSharp
-        m_MethodName: bu
+        m_MethodName: CubeSelected
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 904825095}
@@ -5861,7 +5861,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1825364710}
         m_TargetAssemblyTypeName: MemoryGame, Assembly-CSharp
-        m_MethodName: bu
+        m_MethodName: CubeSelected
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1050403909}
@@ -5978,6 +5978,56 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1050403909}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1066312633 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2483171112401766336, guid: f54012181eacade4ea242c65f804720f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1865671071}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1066312636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066312633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    quality: 3
+    frameInfluence: 0.1
+    jitterScale: 1
+    mipBias: 0
+    varianceClampScale: 0.9
+    contrastAdaptiveSharpening: 0
 --- !u!1 &1066860541
 GameObject:
   m_ObjectHideFlags: 0
@@ -6090,7 +6140,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1825364710}
         m_TargetAssemblyTypeName: MemoryGame, Assembly-CSharp
-        m_MethodName: bu
+        m_MethodName: CubeSelected
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1066860541}
@@ -6319,7 +6369,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1825364710}
         m_TargetAssemblyTypeName: MemoryGame, Assembly-CSharp
-        m_MethodName: bu
+        m_MethodName: CubeSelected
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1098927868}
@@ -6759,7 +6809,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1229839518}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
@@ -7909,6 +7959,56 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1429645392}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1491947689 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2483171112401766340, guid: f54012181eacade4ea242c65f804720f,
+    type: 3}
+  m_PrefabInstance: {fileID: 1865671071}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1491947693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1491947689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    quality: 3
+    frameInfluence: 0.1
+    jitterScale: 1
+    mipBias: 0
+    varianceClampScale: 0.9
+    contrastAdaptiveSharpening: 0
 --- !u!1 &1549047694
 GameObject:
   m_ObjectHideFlags: 0
@@ -8434,7 +8534,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1825364710}
         m_TargetAssemblyTypeName: MemoryGame, Assembly-CSharp
-        m_MethodName: bu
+        m_MethodName: CubeSelected
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1785358975}
@@ -8663,7 +8763,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1825364710}
         m_TargetAssemblyTypeName: MemoryGame, Assembly-CSharp
-        m_MethodName: bu
+        m_MethodName: CubeSelected
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1800199978}
@@ -8839,7 +8939,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1825364709}
   - component: {fileID: 1825364710}
-  - component: {fileID: 1825364711}
   m_Layer: 0
   m_Name: Puzzles
   m_TagString: Untagged
@@ -8940,68 +9039,6 @@ MonoBehaviour:
   timeText: {fileID: 1344609169}
   endGameScoreText: {fileID: 440228045}
   gameFinishedMenu: {fileID: 884441955}
---- !u!114 &1825364711
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1825364708}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c998f0fc26694bc42bf547de6e2a72f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  quads:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  cubes:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  materials:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  cameraRig: {fileID: 0}
-  scoreText: {fileID: 0}
-  matchesText: {fileID: 0}
-  attemptsText: {fileID: 0}
-  timeText: {fileID: 0}
-  endGameScoreText: {fileID: 0}
-  gameFinishedMenu: {fileID: 0}
 --- !u!1 &1839528337
 GameObject:
   m_ObjectHideFlags: 0
@@ -9301,6 +9338,11 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.0000000018992858
       objectReference: {fileID: 0}
+    - target: {fileID: 22564515830151863, guid: f54012181eacade4ea242c65f804720f,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 357438090224960761, guid: f54012181eacade4ea242c65f804720f,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -9370,6 +9412,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0.06470141
+      objectReference: {fileID: 0}
+    - target: {fileID: 461824966477252963, guid: f54012181eacade4ea242c65f804720f,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 620995614767069460, guid: f54012181eacade4ea242c65f804720f,
         type: 3}
@@ -9515,6 +9562,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.54364884
+      objectReference: {fileID: 0}
+    - target: {fileID: 881564761534329802, guid: f54012181eacade4ea242c65f804720f,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1445962597250355434, guid: f54012181eacade4ea242c65f804720f,
         type: 3}
@@ -9558,13 +9610,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2483171112407822892, guid: f54012181eacade4ea242c65f804720f,
         type: 3}
+      propertyPath: usePerEyeCameras
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2483171112407822892, guid: f54012181eacade4ea242c65f804720f,
+        type: 3}
       propertyPath: useFixedUpdateForTracking
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2514675399181695721, guid: f54012181eacade4ea242c65f804720f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.019592535
+      value: -0.613
       objectReference: {fileID: 0}
     - target: {fileID: 2514675399181695721, guid: f54012181eacade4ea242c65f804720f,
         type: 3}
@@ -9574,27 +9631,27 @@ PrefabInstance:
     - target: {fileID: 2514675399181695721, guid: f54012181eacade4ea242c65f804720f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.68492526
+      value: 0.619
       objectReference: {fileID: 0}
     - target: {fileID: 2514675399181695721, guid: f54012181eacade4ea242c65f804720f,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 0.4308916
       objectReference: {fileID: 0}
     - target: {fileID: 2514675399181695721, guid: f54012181eacade4ea242c65f804720f,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2514675399181695721, guid: f54012181eacade4ea242c65f804720f,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0.9024037
       objectReference: {fileID: 0}
     - target: {fileID: 2514675399181695721, guid: f54012181eacade4ea242c65f804720f,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2514675399181695721, guid: f54012181eacade4ea242c65f804720f,
         type: 3}
@@ -9604,7 +9661,7 @@ PrefabInstance:
     - target: {fileID: 2514675399181695721, guid: f54012181eacade4ea242c65f804720f,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 128.952
       objectReference: {fileID: 0}
     - target: {fileID: 2514675399181695721, guid: f54012181eacade4ea242c65f804720f,
         type: 3}
@@ -9650,6 +9707,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: OVRCameraRigInteraction
+      objectReference: {fileID: 0}
+    - target: {fileID: 3834585794363047480, guid: f54012181eacade4ea242c65f804720f,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4027318702105972791, guid: f54012181eacade4ea242c65f804720f,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4027318702109573403, guid: f54012181eacade4ea242c65f804720f,
         type: 3}
@@ -9871,6 +9938,16 @@ PrefabInstance:
       propertyPath: m_LocalRotation.x
       value: 0.4921589
       objectReference: {fileID: 0}
+    - target: {fileID: 6288132507862854628, guid: f54012181eacade4ea242c65f804720f,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6435317778276917714, guid: f54012181eacade4ea242c65f804720f,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6544675782907221101, guid: f54012181eacade4ea242c65f804720f,
         type: 3}
       propertyPath: m_LocalRotation.w
@@ -9971,6 +10048,11 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.0005570275
       objectReference: {fileID: 0}
+    - target: {fileID: 7617985574548531134, guid: f54012181eacade4ea242c65f804720f,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7617985574562231962, guid: f54012181eacade4ea242c65f804720f,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -9985,6 +10067,46 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.0000000037985717
+      objectReference: {fileID: 0}
+    - target: {fileID: 7814961092581917567, guid: f54012181eacade4ea242c65f804720f,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7908692353090562265, guid: f54012181eacade4ea242c65f804720f,
+        type: 3}
+      propertyPath: _hoverColor0.b
+      value: 0.9716981
+      objectReference: {fileID: 0}
+    - target: {fileID: 7908692353090562265, guid: f54012181eacade4ea242c65f804720f,
+        type: 3}
+      propertyPath: _hoverColor0.g
+      value: 0.7884298
+      objectReference: {fileID: 0}
+    - target: {fileID: 7908692353090562265, guid: f54012181eacade4ea242c65f804720f,
+        type: 3}
+      propertyPath: _hoverColor0.r
+      value: 0.3254272
+      objectReference: {fileID: 0}
+    - target: {fileID: 7908692353090562265, guid: f54012181eacade4ea242c65f804720f,
+        type: 3}
+      propertyPath: _selectColor0.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7908692353090562265, guid: f54012181eacade4ea242c65f804720f,
+        type: 3}
+      propertyPath: _selectColor0.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7908692353090562265, guid: f54012181eacade4ea242c65f804720f,
+        type: 3}
+      propertyPath: _selectColor0.r
+      value: 0.49497414
+      objectReference: {fileID: 0}
+    - target: {fileID: 7908692353090562265, guid: f54012181eacade4ea242c65f804720f,
+        type: 3}
+      propertyPath: _maxRayVisualLength
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 8380603820470070935, guid: f54012181eacade4ea242c65f804720f,
         type: 3}
@@ -10020,6 +10142,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.0013891249
+      objectReference: {fileID: 0}
+    - target: {fileID: 8496012864688266979, guid: f54012181eacade4ea242c65f804720f,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8728439679320704408, guid: f54012181eacade4ea242c65f804720f,
         type: 3}
@@ -10124,7 +10251,15 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 277029337}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2483171112401766336, guid: f54012181eacade4ea242c65f804720f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1066312636}
+    - targetCorrespondingSourceObject: {fileID: 2483171112401766340, guid: f54012181eacade4ea242c65f804720f,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1491947693}
   m_SourcePrefab: {fileID: 100100000, guid: f54012181eacade4ea242c65f804720f, type: 3}
 --- !u!1 &1901654114
 GameObject:
@@ -11354,7 +11489,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1825364710}
         m_TargetAssemblyTypeName: MemoryGame, Assembly-CSharp
-        m_MethodName: bu
+        m_MethodName: CubeSelected
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 2115338591}
@@ -11566,7 +11701,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1825364710}
         m_TargetAssemblyTypeName: MemoryGame, Assembly-CSharp
-        m_MethodName: bu
+        m_MethodName: CubeSelected
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 2116501319}

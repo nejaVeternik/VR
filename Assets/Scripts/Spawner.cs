@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
+    public static Spawner Instance { get; private set; } // Singleton instance
     public GameObject objectToSpawn;
     public float spawnInterval = 2f;  // Time between spawns
     public float minX = -10f;
@@ -22,6 +23,19 @@ public class Spawner : MonoBehaviour
     private ControllerManager controllerManager;
     private LevelManager levelManager;
     private bool isSpawningStopped = false;
+
+    private void Awake()
+    {
+        // Singleton pattern implementation
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {
@@ -96,6 +110,28 @@ public class Spawner : MonoBehaviour
         {
             mover.SetProperties(currentLevel.verticalSpeed, currentLevel.maxVerticalSpeed, currentLevel.horizontalMagnitude);
             mover.SetSpecial(false);
+        }
+    }
+
+    public void DisableAllObjects()
+    {
+        foreach (GameObject obj in spawnedObjects)
+        {
+            if (obj != null)
+            {
+                obj.SetActive(false);
+            }
+        }
+    }
+
+    public void EnableAllObjects()
+    {
+        foreach (GameObject obj in spawnedObjects)
+        {
+            if (obj != null)
+            {
+                obj.SetActive(true);
+            }
         }
     }
 

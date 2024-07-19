@@ -17,7 +17,6 @@ public class MemoryGame : MonoBehaviour
     public TextMeshProUGUI endGameScoreText; // Reference to the score text in the end game menu
     public GameObject gameFinishedMenu; // Reference to the game finished menu
 
-    private ControllerManager controllerManager;
     private GameObject firstSelectedQuad = null;
     private GameObject secondSelectedQuad = null;
     private IEnumerator coroutine;
@@ -44,7 +43,7 @@ public class MemoryGame : MonoBehaviour
     }
 
 
-    public void CubeSelected(GameObject hitted) 
+     public void CubeSelected(GameObject hitted) 
     {
         if (!disable)
         {
@@ -53,9 +52,14 @@ public class MemoryGame : MonoBehaviour
 
             if (selectedCube != null && !matchedCubes.Contains(selectedCube))
             {
+                // Check if the selected cube is the same as the first selected cube
+                if (selectedCube == firstSelectedQuad)
+                {
+                    return; // Early return to prevent selecting the same cube twice
+                }
+
                 selectedCube.transform.Rotate(0, 180, 0);
                 GameObject selectedQuad = selectedCube.transform.GetChild(0).gameObject;
-                Debug.Log("Succesful");
 
                 if (firstSelectedQuad == null)
                 {
@@ -67,7 +71,6 @@ public class MemoryGame : MonoBehaviour
                     CheckPair();
                 }
             }
-            
         }
     }
 
@@ -111,11 +114,6 @@ public class MemoryGame : MonoBehaviour
                 }
             }
         }
-    }
-
-    public void selected()
-    {
-        //Debug.Log("selected");
     }
 
     void CheckPair()
@@ -187,7 +185,7 @@ public class MemoryGame : MonoBehaviour
         scoreText.text = score.ToString();
         timeText.text = timeElapsed.ToString("F2");
 
-        if (controllerManager != null && gameFinishedMenu != null)
+        if (gameFinishedMenu != null)
         {
             // Update the score text in the end game menu
             if (endGameScoreText != null)
@@ -195,8 +193,8 @@ public class MemoryGame : MonoBehaviour
                 endGameScoreText.text = "Igra zakljucena. Rezultat: " + score.ToString();
             }
 
-            controllerManager.PositionMenuInFrontOfPlayer(gameFinishedMenu);
             gameFinishedMenu.SetActive(true);
+            //controllerManager.PositionMenuInFrontOfPlayer(gameFinishedMenu);
         }
     }
 
