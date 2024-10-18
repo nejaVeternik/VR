@@ -51,7 +51,6 @@ public class UserAuthManager : MonoBehaviour
 
     public void LoginUser()
     {
-        Debug.Log("AAAAAAAAAA");
         //string username = usernameInputField.text;
         //string password = passwordInputField.text;
 
