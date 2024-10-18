@@ -3,31 +3,31 @@ using Oculus.Interaction;
 
 public class Mover : MonoBehaviour
 {
-    public float verticalSpeed = 5f;  // Default constant vertical speed (upward movement)
-    public float targetHeight = 4f;  // Height at which to stop accelerating
-    public float horizontalMagnitude = 2.5f;  // Default maximum horizontal deviation
-    public float rotationSpeed = 90f;  // Rotation speed in degrees per second (around the Z-axis)
-    public float maxVerticalSpeed = 10f;  // Maximum vertical speed after acceleration
-    public float smoothTime = 1.0f;  // Smooth time for horizontal movement
-    public float removalHeight = 10f;  // Height at which to remove the object
-    public GameObject animationPrefab;  // Animation prefab to spawn on poke
-    public float trackHitHeight = 3f;  // Height from which to start tracking the hit time
+    public float verticalSpeed = 5f;  
+    public float targetHeight = 4f;  
+    public float horizontalMagnitude = 2.5f;  
+    public float rotationSpeed = 90f;  
+    public float maxVerticalSpeed = 10f;  
+    public float smoothTime = 1.0f;  
+    public float removalHeight = 10f;  
+    public GameObject animationPrefab;  
+    public float trackHitHeight = 3f;  
 
-    private float currentSpeed;  // Current upward speed of the object
-    private float originalZ;  // Original Z position to use as the base for left/right movement
+    private float currentSpeed;  
+    private float originalZ;  
     private float horizontalSpeed = 0.0f;
     private PokeInteractable plate;
-    public int basePoints = 10;  // Default points for normal objects
+    public int basePoints = 10;  
     public int extraPoints = 0;
     private ControllerManager controllerManager;
     private bool isPoked = false;
-    private bool hasSlowedDown = false;  // Flag to check if the object has slowed down
-    private float slowDownTime;  // Time when the object slowed down
-    private bool isSpecial = false;  // Flag to check if the object is special
-    private float trackStartTime;  // Time when the object reaches trackHitHeight
-    private float hitHeight;  // Height at which the object was hit
+    private bool hasSlowedDown = false;  
+    private float slowDownTime; 
+    private bool isSpecial = false;  
+    private float trackStartTime;  
+    private float hitHeight;  
     private LevelManager levelManager;
-     private bool isPaused = false; // Add this variable to track pause state
+     private bool isPaused = false; 
 
     void Awake()
     {
@@ -42,19 +42,18 @@ public class Mover : MonoBehaviour
     {
         levelManager = FindObjectOfType<LevelManager>();
         controllerManager = FindObjectOfType<ControllerManager>();
-        originalZ = transform.position.z;  // Remember the original Z position at start
-        currentSpeed = verticalSpeed;  // Set the initial upward speed
-        plate.WhenInteractorAdded.Action += OnPoked;  // Subscribe to the poke event
+        originalZ = transform.position.z;  
+        currentSpeed = verticalSpeed;  
+        plate.WhenInteractorAdded.Action += OnPoked; 
     }
 
     void Update()
     {
         if (controllerManager != null && controllerManager.IsPaused()) return;
-        if (isPoked || isPaused) return;  // Skip updates if the object is poked or paused
+        if (isPoked || isPaused) return; 
 
         checkForRemoval();
 
-        // Manage vertical movement
         if (transform.position.y < targetHeight)
         {
             currentSpeed = maxVerticalSpeed;
@@ -64,24 +63,21 @@ public class Mover : MonoBehaviour
             if (!hasSlowedDown)
             {
                 hasSlowedDown = true;
-                slowDownTime = Time.time;  // Record the time when the object slows down
+                slowDownTime = Time.time; 
             }
             currentSpeed = verticalSpeed;
         }
         transform.position += Vector3.up * currentSpeed * Time.deltaTime;
 
-        // Record the time when the object reaches the trackHitHeight
         if (transform.position.y >= trackHitHeight && trackStartTime == 0f)
         {
             trackStartTime = Time.time;
         }
 
-        // Continuous smooth random left and right movement using SmoothDamp
         float targetZPosition = originalZ + Random.Range(-horizontalMagnitude, horizontalMagnitude);
         float newPositionZ = Mathf.SmoothDamp(transform.position.z, targetZPosition, ref horizontalSpeed, smoothTime);
         transform.position = new Vector3(transform.position.x, transform.position.y, newPositionZ);
 
-        // Continuous rotation around the Z-axis
         transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
     }
 
@@ -89,7 +85,7 @@ public class Mover : MonoBehaviour
     {
         if (transform.position.y > removalHeight)
         {
-            Destroy(gameObject);  // Remove the object when it reaches the removal height
+            Destroy(gameObject);  
         }
     }
 
@@ -100,10 +96,10 @@ public class Mover : MonoBehaviour
         if (controllerManager != null && controllerManager.IsPaused()) return;
         if (isPoked) return;
 
-        isPoked = true;  // Set flag to indicate the object is poked
+        isPoked = true; 
 
         float hitTime = 0f;
-        hitHeight = transform.position.y;  // Record the height at which the object was hit
+        hitHeight = transform.position.y; 
 
         if (ScoreManager.Instance != null)
         {
@@ -113,19 +109,15 @@ public class Mover : MonoBehaviour
             {
                 if (trackStartTime == 0f)
                 {
-                    // Calculate hit time based on the height difference
                     float heightDifference = targetHeight - transform.position.y;
-                    hitTime = heightDifference / maxVerticalSpeed;  // Assuming constant speed
+                    hitTime = heightDifference / maxVerticalSpeed; 
 
-                    // If the object is poked before it slows down, give maximum bonus points
                     timeBonus = 10;
                 }
                 else
                 {
-                    // Calculate the time taken to hit the target after it reached the trackHitHeight
                     hitTime = Time.time - trackStartTime;
 
-                    // Calculate bonus points based on time taken to hit the target
                     if (hitTime <= 5f)
                     {
                         timeBonus = 10;
@@ -138,7 +130,6 @@ public class Mover : MonoBehaviour
                 ScoreManager.Instance.UpdateAverageHitTime(hitTime);
             }
 
-            // Add points to the score
             ScoreManager.Instance.AddPoints(basePoints + extraPoints + timeBonus);
         }
 
@@ -146,7 +137,6 @@ public class Mover : MonoBehaviour
 
         //Debug.Log("Hit time: " + hitTime + "\n" + "Hit height: " + hitHeight);
 
-        // Instantiate the animation GameObject and destroy it after 1 second
         if (animationPrefab != null)
         {
             var animationInstance = Instantiate(animationPrefab, transform.position, Quaternion.identity);

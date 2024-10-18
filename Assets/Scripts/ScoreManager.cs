@@ -4,7 +4,7 @@ using TMPro;
 public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance;
-    public TextMeshProUGUI scoreText;     // Reference to the TextMeshProUGUI component
+    public TextMeshProUGUI scoreText;     
     public int Score { get; private set; }
     private bool loggingEnabled = false;
     private int totalPoints;
@@ -31,7 +31,7 @@ public class ScoreManager : MonoBehaviour
     {
         if (gameFinished) return;
 
-        Score += points;  // Update the score
+        Score += points;  
 
         if (scoreText != null) scoreText.text = Score.ToString();
 
@@ -71,6 +71,5 @@ public class ScoreManager : MonoBehaviour
     {
         gameFinished = true;
         
-        //scoreText.text = "Game Finished! Final Score: " + Score.ToString();
     }
 }

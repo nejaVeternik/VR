@@ -6,7 +6,7 @@ using Oculus.Interaction;
 public class Alien : MonoBehaviour
 {
     private PokeInteractable alien;
-    public int basePoints = 10;  // Default points for normal objects
+    public int basePoints = 10;  
     public int extraPoints = 0;
 
     public delegate void AlienPokedHandler(GameObject alien, float reactionTime);

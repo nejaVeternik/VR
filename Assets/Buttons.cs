@@ -7,25 +7,25 @@ public class Buttons : MonoBehaviour
     public static Buttons Instance;
 
     public LightEntry[] lights;
-    public float diameter = 1.8f; // Diameter of the torus
-    public float minY = 0f; // Minimum Y bound for level 3 lights
-    public float maxY = 1.5f; // Maximum Y bound for level 3 lights
+    public float diameter = 1.8f; 
+    public float minY = 0f; 
+    public float maxY = 1.5f; 
     public float blinkInterval = 0.5f;
-    public float moveSpeed = 0.05f; // Speed at which the lights move
-    public float circleRadius = 0.1f; // Radius of the circular motion, reduced for smaller circles
+    public float moveSpeed = 0.05f; 
+    public float circleRadius = 0.1f; 
     private Light currentLight;
     private float timer;
     private bool isLightOn;
     private ControllerManager controllerManager;
-    private string currentColor; // Track the current color for level 2
-    private List<LightEntry> activeLights = new List<LightEntry>(); // Track active lights for level 2 and 3
-    private Dictionary<GameObject, float> circleOffsets = new Dictionary<GameObject, float>(); // Track offsets for circular motion
-    private Dictionary<GameObject, bool> movementType = new Dictionary<GameObject, bool>(); // Track movement type (true for circular, false for up and down)
-    private Dictionary<GameObject, Vector3> initialPositions = new Dictionary<GameObject, Vector3>(); // Track initial positions for circular motion
-    private bool isGameFinished = false; // Flag to stop lighting up lights
-    private Dictionary<Light, float> lightUpTimes = new Dictionary<Light, float>(); // Track the time when each light is lit up
-    private Dictionary<Light, float> pressTimes = new Dictionary<Light, float>(); // Track the time when each light is pressed
-    private float lastPressTime; // Track the time of the last press in level 2
+    private string currentColor; 
+    private List<LightEntry> activeLights = new List<LightEntry>();
+    private Dictionary<GameObject, float> circleOffsets = new Dictionary<GameObject, float>(); 
+    private Dictionary<GameObject, bool> movementType = new Dictionary<GameObject, bool>(); 
+    private Dictionary<GameObject, Vector3> initialPositions = new Dictionary<GameObject, Vector3>();
+    private bool isGameFinished = false; 
+    private Dictionary<Light, float> lightUpTimes = new Dictionary<Light, float>(); 
+    private Dictionary<Light, float> pressTimes = new Dictionary<Light, float>(); 
+    private float lastPressTime; 
 
     private int currentLevel = 1;
     private int maxLevel = 3;
@@ -52,12 +52,11 @@ public class Buttons : MonoBehaviour
             return;
         }
 
-        // Ensure all parent objects are active at the start
         foreach (LightEntry entry in lights)
         {
             entry.parentObject.SetActive(true);
-            entry.light.enabled = false; // Ensure all lights are initially turned off
-            initialPositions[entry.parentObject] = entry.parentObject.transform.position; // Store the initial position
+            entry.light.enabled = false; 
+            initialPositions[entry.parentObject] = entry.parentObject.transform.position; 
         }
 
         LightUpRandomLight();
@@ -66,7 +65,7 @@ public class Buttons : MonoBehaviour
     void Update()
     {
         if (controllerManager != null && controllerManager.IsPaused()) return;
-        if (isGameFinished) return; // Do nothing if the game is finished
+        if (isGameFinished) return; 
 
         if (currentLevel == 1 && currentLight != null)
         {
@@ -88,26 +87,26 @@ public class Buttons : MonoBehaviour
     {
         foreach (var entry in activeLights)
         {
-            var obj = entry.parentObject; // Move the parent object
+            var obj = entry.parentObject; 
             if (!circleOffsets.ContainsKey(obj))
             {
                 circleOffsets[obj] = Random.Range(0f, 2f * Mathf.PI);
-                movementType[obj] = Random.value > 0.5f; // Randomly choose the movement type
+                movementType[obj] = Random.value > 0.5f; 
             }
 
             float offset = circleOffsets[obj];
-            Vector3 initialPosition = initialPositions[obj]; // Get the initial position
+            Vector3 initialPosition = initialPositions[obj]; 
 
             Vector3 newPosition = initialPosition;
 
-            if (movementType[obj]) // Circular motion in the y-z plane
+            if (movementType[obj]) 
             {
                 newPosition.y += Mathf.Cos(Time.time * (moveSpeed * 8) + offset) * circleRadius;
                 newPosition.z += Mathf.Sin(Time.time * (moveSpeed * 8) + offset) * circleRadius;
             }
-            else // Move up and down
+            else
             {
-                float amplitude = 0.1f; // Amplitude of 0.1 units for a total bounce height of 0.2 units
+                float amplitude = 0.1f; 
                 newPosition.y = initialPosition.y + Mathf.PingPong(Time.time * moveSpeed, amplitude * 2f) - amplitude;
             }
 
@@ -118,7 +117,7 @@ public class Buttons : MonoBehaviour
     public void LightUpRandomLight()
     {
         if (controllerManager != null && controllerManager.IsPaused()) return;
-        if (isGameFinished) return; // Do nothing if the game is finished
+        if (isGameFinished) return; 
 
         foreach (LightEntry entry in lights)
         {
@@ -132,7 +131,7 @@ public class Buttons : MonoBehaviour
             currentLight.enabled = true;
             isLightOn = true;
             timer = 0f;
-            lightUpTimes[currentLight] = Time.time; // Record the time when the light is lit up
+            lightUpTimes[currentLight] = Time.time; 
         }
         else if (currentLevel == 2)
         {
@@ -146,28 +145,25 @@ public class Buttons : MonoBehaviour
                 {
                     entry.light.enabled = true;
                     activeLights.Add(entry);
-                    lightUpTimes[entry.light] = Time.time; // Record the time when each light is lit up
+                    lightUpTimes[entry.light] = Time.time; 
                 }
             }
-            lastPressTime = lightUpTimes[activeLights[0].light]; // Initialize the last press time with the first light's up time
+            lastPressTime = lightUpTimes[activeLights[0].light]; 
         }
         else if (currentLevel == 3)
         {
-            // Enable all parent objects (they should already be enabled, but ensure they are)
             foreach (LightEntry entry in lights)
             {
                 entry.parentObject.SetActive(true);
             }
 
-            // Light up a random light from lights
             int randomIndex = Random.Range(0, lights.Length);
             currentLight = lights[randomIndex].light;
             currentLight.enabled = true;
             isLightOn = true;
             timer = 0f;
-            lightUpTimes[currentLight] = Time.time; // Record the time when the light is lit up
+            lightUpTimes[currentLight] = Time.time; 
 
-            // Track the active light
             activeLights.Clear();
             activeLights.Add(lights[randomIndex]);
         }
@@ -181,12 +177,12 @@ public class Buttons : MonoBehaviour
             return;
         }
 
-        float reactionTime = Time.time - (currentLevel == 2 ? lastPressTime : lightUpTimes[pressedLight]); // Calculate reaction time based on level
-        TrackerController.Instance.RecordReactionTime(reactionTime); // Send reaction time to controller
+        float reactionTime = Time.time - (currentLevel == 2 ? lastPressTime : lightUpTimes[pressedLight]); 
+        TrackerController.Instance.RecordReactionTime(reactionTime);
 
         if (currentLevel == 2)
         {
-            pressTimes[pressedLight] = Time.time; // Record the press time for level 2
+            pressTimes[pressedLight] = Time.time; 
         }
 
         if (currentLevel == 2)
@@ -199,7 +195,6 @@ public class Buttons : MonoBehaviour
 
                 if (activeLights.Count == 0)
                 {
-                    // Calculate the average reaction time for level 2
                     float totalReactionTime = 0f;
                     foreach (var pressTime in pressTimes)
                     {
@@ -207,29 +202,26 @@ public class Buttons : MonoBehaviour
                     }
                     float averageReactionTime = totalReactionTime / pressTimes.Count;
 
-                    // Special scoring for level 2 based on average reaction time
                     int level2Points = CalculatePoints(averageReactionTime);
                     ScoreManagerGait.Instance.AddPoints(level2Points);
-                    ScoreManagerGait.Instance.IncrementGroupsPressedInLevel2(); // Track groups pressed
+                    ScoreManagerGait.Instance.IncrementGroupsPressedInLevel2(); 
 
-                    // Clear pressTimes and lightUpTimes for next group
                     pressTimes.Clear();
                     lightUpTimes.Clear();
 
-                    LightUpRandomLight(); // Light up another set of lights
+                    LightUpRandomLight(); 
                 }
                 else
                 {
-                    lastPressTime = Time.time; // Reset the last press time
+                    lastPressTime = Time.time; 
                 }
             }
         }
         else if (currentLevel == 1 && IsCurrentLight(pressedLight))
         {
-            // Handle level 1 logic
             int points = CalculatePoints(reactionTime);
             pressedLight.enabled = false;
-            ScoreManagerGait.Instance.AddPoints(points); // Add points based on reaction time
+            ScoreManagerGait.Instance.AddPoints(points); 
             ScoreManagerGait.Instance.IncrementLightsPressedInLevel1();
             LightUpRandomLight();
         }
@@ -241,7 +233,7 @@ public class Buttons : MonoBehaviour
                 int points = CalculatePoints(reactionTime);
                 pressedLight.enabled = false;
                 activeLights.Remove(pressedEntry);
-                ScoreManagerGait.Instance.AddPoints(points); // Add points based on reaction time
+                ScoreManagerGait.Instance.AddPoints(points); 
                 ScoreManagerGait.Instance.IncrementLightsPressedInLevel3();
                 LightUpRandomLight();
             }
@@ -303,6 +295,6 @@ public class Buttons : MonoBehaviour
 public class LightEntry
 {
     public Light light;
-    public GameObject parentObject; // Reference to the parent game object
+    public GameObject parentObject;
     public string color;
 }

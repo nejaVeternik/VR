@@ -10,21 +10,21 @@ public class ScoreManagerGait : MonoBehaviour
     public TextMeshProUGUI scoreText1;
     public TextMeshProUGUI levelText;
     public TextMeshProUGUI levelText1;
-    public TextMeshProUGUI endGameScoreText; // Reference to the score text in the end game menu
+    public TextMeshProUGUI endGameScoreText;
     public int Score { get; private set; }
-    public GameObject gameFinishedMenu; // Reference to the game finished menu
+    public GameObject gameFinishedMenu; 
 
-    public int lightsToPressForLevel2 = 3; // Configurable number of lights to press to move to level 2
-    public int groupsToPressForLevel3 = 2; // Configurable number of groups to press to move to level 3
-    public int lightsToPressToEndGame = 3; // Configurable number of lights to press to finish the game
+    public int lightsToPressForLevel2 = 3; 
+    public int groupsToPressForLevel3 = 2; 
+    public int lightsToPressToEndGame = 3; 
 
     private ControllerManager controllerManager;
     private Buttons buttonsInstance;
-    private bool isGameFinished = false; // Flag to check if the game is finished
+    private bool isGameFinished = false;
 
-    private int lightsPressedInLevel1 = 0; // Track the number of lights pressed in level 1
-    private int groupsPressedInLevel2 = 0; // Track the number of groups pressed in level 2
-    private int lightsPressedInLevel3 = 0; // Track the number of lights pressed in level 3
+    private int lightsPressedInLevel1 = 0; 
+    private int groupsPressedInLevel2 = 0; 
+    private int lightsPressedInLevel3 = 0; 
 
     private void Awake()
     {
@@ -83,7 +83,7 @@ public class ScoreManagerGait : MonoBehaviour
         {
             if (!isGameFinished)
             {
-                isGameFinished = true; // Set the game finished flag
+                isGameFinished = true; 
                 ShowGameFinishedMenu();
             }
         }
@@ -111,7 +111,6 @@ public class ScoreManagerGait : MonoBehaviour
     {
         if (controllerManager != null && gameFinishedMenu != null)
         {
-            // Update the score text in the end game menu
             if (endGameScoreText != null)
             {
                 endGameScoreText.text = "Igra zakljucena. Rezultat: " + Score.ToString();
@@ -120,7 +119,6 @@ public class ScoreManagerGait : MonoBehaviour
             controllerManager.PositionMenuInFrontOfPlayer(gameFinishedMenu);
             gameFinishedMenu.SetActive(true);
 
-            // Stop lighting up the lights
             if (buttonsInstance != null)
             {
                 buttonsInstance.StopLightingUp();

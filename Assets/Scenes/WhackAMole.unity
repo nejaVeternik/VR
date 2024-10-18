@@ -299,6 +299,7 @@ MonoBehaviour:
   menuDistance: 1.5
   torusCenter: {x: 0, y: 0, z: 0}
   torusRadius: 1.8
+  spawner: {fileID: 0}
 --- !u!4 &129592017
 Transform:
   m_ObjectHideFlags: 0
@@ -998,7 +999,7 @@ PrefabInstance:
     - target: {fileID: 7114770129336771049, guid: df64bf5efda75be4db0c812f9277d678,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.985
+      value: -2.19
       objectReference: {fileID: 0}
     - target: {fileID: 7114770129336771049, guid: df64bf5efda75be4db0c812f9277d678,
         type: 3}
@@ -1008,7 +1009,7 @@ PrefabInstance:
     - target: {fileID: 7114770129336771049, guid: df64bf5efda75be4db0c812f9277d678,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.121
+      value: 0.049
       objectReference: {fileID: 0}
     - target: {fileID: 7114770129336771049, guid: df64bf5efda75be4db0c812f9277d678,
         type: 3}
@@ -2776,17 +2777,17 @@ PrefabInstance:
     - target: {fileID: 2514675399181695721, guid: f54012181eacade4ea242c65f804720f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.403
+      value: -2.246
       objectReference: {fileID: 0}
     - target: {fileID: 2514675399181695721, guid: f54012181eacade4ea242c65f804720f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.462
+      value: -0.897
       objectReference: {fileID: 0}
     - target: {fileID: 2514675399181695721, guid: f54012181eacade4ea242c65f804720f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.167
+      value: 0.168
       objectReference: {fileID: 0}
     - target: {fileID: 2514675399181695721, guid: f54012181eacade4ea242c65f804720f,
         type: 3}
@@ -5174,6 +5175,7 @@ MonoBehaviour:
   menuDistance: 1.5
   torusCenter: {x: 0, y: 0, z: 0}
   torusRadius: 1.8
+  spawner: {fileID: 0}
 --- !u!1001 &1114961028
 PrefabInstance:
   m_ObjectHideFlags: 0

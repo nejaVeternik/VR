@@ -7,11 +7,11 @@ using static Oculus.Interaction.InteractableColorVisual;
 
 public class platesGame : MonoBehaviour
 {
-    public List<InteractableColorVisual> plateVisuals; // List of plate visuals
-    public List<PokeInteractable> plateInteractables; // List of plate interactables
-    public List<TextMeshProUGUI> plateTexts; // List of text components for each plate
+    public List<InteractableColorVisual> plateVisuals; 
+    public List<PokeInteractable> plateInteractables; 
+    public List<TextMeshProUGUI> plateTexts; 
     public TextMeshProUGUI scoreText;
-    public float timeToPress = 5f; // Time to press the plate
+    public float timeToPress = 5f; 
 
     private float timer;
     private float pressTimer;
@@ -26,12 +26,12 @@ public class platesGame : MonoBehaviour
     {
         foreach (var plate in plateInteractables)
         {
-            plate.WhenInteractorAdded.Action += OnPlatePoked; // Add OnPlatePoked to all plates
+            plate.WhenInteractorAdded.Action += OnPlatePoked; 
         }
 
         foreach (var text in plateTexts)
         {
-            text.text = ""; // Initialize all texts as empty
+            text.text = "";
         }
     }
 
@@ -61,7 +61,7 @@ public class platesGame : MonoBehaviour
     {
         currentActivePlate = Random.Range(0, plateVisuals.Count);
         var currentRandomText = Random.Range(0, activeText.Length);
-        plateTexts[currentActivePlate].text = activeText[currentRandomText]; // Set the text for the activated plate
+        plateTexts[currentActivePlate].text = activeText[currentRandomText]; 
         platePressedInTime = false;
         pressTimer = 0f;
     }
@@ -70,7 +70,7 @@ public class platesGame : MonoBehaviour
     {
         if (currentActivePlate != -1)
         {
-            plateTexts[currentActivePlate].text = ""; // Clear or disable the text
+            plateTexts[currentActivePlate].text = ""; 
             currentActivePlate = -1;
         }
         timer = 0f;
@@ -78,18 +78,17 @@ public class platesGame : MonoBehaviour
 
     private void OnPlatePoked(PokeInteractor pokeInteractor)
     {
-        // Determine which plate was poked
         int pokedPlateIndex = plateInteractables.IndexOf(pokeInteractor.GetComponent<PokeInteractable>());
 
         // if (pokedPlateIndex == currentActivePlate)
         // {
         //     platePressedInTime = true;
-        //     score += 100; // Reward for pressing the active plate in time
+        //     score += 100; // 
         //     UpdateScore();
         //     ResetPlates();
         // }
         platePressedInTime = true;
-        score += 100; // Reward for pressing the active plate in time
+        score += 100; 
         UpdateScore();
         ResetPlates();
     }

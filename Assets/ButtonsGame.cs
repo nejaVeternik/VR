@@ -7,7 +7,7 @@ public class ButtonsGame : MonoBehaviour
 {
     private Transform currentParent;
     private PokeInteractable button;
-    public int basePoints = 10; // Default points for normal objects
+    public int basePoints = 10; 
     public int extraPoints = 0;
     private Light light;
 

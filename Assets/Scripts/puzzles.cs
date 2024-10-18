@@ -14,8 +14,8 @@ public class MemoryGame : MonoBehaviour
     public TextMeshProUGUI matchesText;
     public TextMeshProUGUI attemptsText;
     public TextMeshProUGUI timeText;
-    public TextMeshProUGUI endGameScoreText; // Reference to the score text in the end game menu
-    public GameObject gameFinishedMenu; // Reference to the game finished menu
+    public TextMeshProUGUI endGameScoreText; 
+    public GameObject gameFinishedMenu;
 
     private GameObject firstSelectedQuad = null;
     private GameObject secondSelectedQuad = null;
@@ -52,10 +52,9 @@ public class MemoryGame : MonoBehaviour
 
             if (selectedCube != null && !matchedCubes.Contains(selectedCube))
             {
-                // Check if the selected cube is the same as the first selected cube
                 if (selectedCube == firstSelectedQuad)
                 {
-                    return; // Early return to prevent selecting the same cube twice
+                    return; 
                 }
 
                 selectedCube.transform.Rotate(0, 180, 0);
@@ -187,7 +186,6 @@ public class MemoryGame : MonoBehaviour
 
         if (gameFinishedMenu != null)
         {
-            // Update the score text in the end game menu
             if (endGameScoreText != null)
             {
                 endGameScoreText.text = "Igra zakljucena. Rezultat: " + score.ToString();

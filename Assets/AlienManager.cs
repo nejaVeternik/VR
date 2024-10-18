@@ -28,7 +28,7 @@ public class AlienManager : MonoBehaviour
             Alien alienScript = alien.GetComponent<Alien>();
             if (alienScript != null)
             {
-                alienScript.OnAlienPoked += OnAlienPoked;
+                alienScript.OnAlienPoked += AlienPoked;
                 // Initialize the aliens to their initial positions
                 Vector3 initialPosition = alien.transform.position;
                 Debug.Log($"Alien {alien.name} initial position: {initialPosition}");
@@ -39,7 +39,7 @@ public class AlienManager : MonoBehaviour
         StartCoroutine(PopUpRandomAlien());
     }
 
-    private void OnAlienPoked(GameObject alien, float reactionTime)
+    private void AlienPoked(GameObject alien, float reactionTime)
     {
         if (controllerManager.IsPaused()) return;
 

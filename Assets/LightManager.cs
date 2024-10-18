@@ -15,7 +15,6 @@ public class LightManager : MonoBehaviour
 
     void Awake()
     {
-        // Ensure there is only one instance of the LightManager
         if (Instance == null)
         {
             Instance = this;
@@ -57,7 +56,6 @@ public class LightManager : MonoBehaviour
 
     public void LightUpRandomLight()
     {
-        Debug.Log("AAAAAAAAAAAAA"); 
         if (controllerManager != null && controllerManager.IsPaused()) return;
 
         int randomIndex = Random.Range(0, lights.Length);

@@ -2310,7 +2310,7 @@ PrefabInstance:
     - target: {fileID: 2514675399181695721, guid: f54012181eacade4ea242c65f804720f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.335
+      value: 0.004
       objectReference: {fileID: 0}
     - target: {fileID: 2514675399181695721, guid: f54012181eacade4ea242c65f804720f,
         type: 3}
@@ -2320,7 +2320,7 @@ PrefabInstance:
     - target: {fileID: 2514675399181695721, guid: f54012181eacade4ea242c65f804720f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.745
+      value: 0.23
       objectReference: {fileID: 0}
     - target: {fileID: 2514675399181695721, guid: f54012181eacade4ea242c65f804720f,
         type: 3}
@@ -4208,6 +4208,7 @@ MonoBehaviour:
   menuDistance: 0.5
   torusCenter: {x: -0.263, y: -1.019, z: 0.508}
   torusRadius: 0.7
+  spawner: {fileID: 0}
 --- !u!4 &1358436124
 Transform:
   m_ObjectHideFlags: 0
@@ -6955,8 +6956,8 @@ MonoBehaviour:
   levelText1: {fileID: 1561503481}
   endGameScoreText: {fileID: 518842289}
   gameFinishedMenu: {fileID: 1230056030}
-  lightsToPressForLevel2: 8
-  groupsToPressForLevel3: 4
+  lightsToPressForLevel2: 5
+  groupsToPressForLevel3: 2
   lightsToPressToEndGame: 6
 --- !u!1001 &1915761157
 PrefabInstance:

@@ -34,14 +34,12 @@ public class LevelManager : MonoBehaviour
         spawner.maxObjects = currentLevel.maxObjects;
         spawner.specialChance = currentLevel.specialChance;
 
-        // Adjust properties for Mover class globally
         Mover[] movers = FindObjectsOfType<Mover>();
         foreach (var mover in movers)
         {
             mover.SetProperties(currentLevel.verticalSpeed, currentLevel.maxVerticalSpeed, currentLevel.horizontalMagnitude);
         }
 
-        // Destroy all currently spawned objects
         DestroyAllActiveObjects();
 
         Debug.Log("Level " + (currentLevelIndex + 1) + " started.");
@@ -90,7 +88,6 @@ public class LevelManager : MonoBehaviour
 
     public void OnGameOver()
     {
-        // Handle game over logic
         Debug.Log("Game Over");
     }
 

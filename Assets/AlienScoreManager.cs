@@ -5,7 +5,7 @@ public class AlienScoreManager : MonoBehaviour
 {
     public static AlienScoreManager Instance { get; private set; }
 
-    public TextMeshProUGUI scoreText;  // Reference to the TextMeshProUGUI element to display the score
+    public TextMeshProUGUI scoreText;  
     private int score = 0;
 
     void Awake()

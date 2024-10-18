@@ -6,20 +6,19 @@ using UnityEngine.SceneManagement;
 public class ControllerManager : MonoBehaviour
 {
     public GameObject menu;
-    public Transform ovrCameraRig; // Reference to the OVR Camera Rig
-    public float menuDistance = 1.5f; // Distance in front of the player to place the menu
-    public Vector3 torusCenter = Vector3.zero; // Center of the torus
-    public float torusRadius = 1.8f; // Radius of the torus bounds
+    public Transform ovrCameraRig; 
+    public float menuDistance = 1.5f; 
+    public Vector3 torusCenter = Vector3.zero; 
+    public float torusRadius = 1.8f; 
 
     private bool isPaused = false;
-    public Spawner spawner; // Reference to the Spawner
+    public Spawner spawner;
 
     private void Start()
     {
         spawner = Spawner.Instance;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if ((OVRInput.GetUp(OVRInput.Button.One) || OVRInput.GetUp(OVRInput.Button.Start)))
@@ -74,20 +73,17 @@ public class ControllerManager : MonoBehaviour
     {
         if (ovrCameraRig != null && targetMenu != null)
         {
-            // Calculate the new position in front of the player's view
             Vector3 forward = ovrCameraRig.forward;
-            forward.y = 0; // Ignore vertical component
+            forward.y = 0; 
             forward.Normalize();
             Vector3 newPosition = ovrCameraRig.position + forward * menuDistance;
 
-            // Clamp the new position within the torus bounds (ignore Y for bounds)
             newPosition = ClampPositionWithinTorus(newPosition);
 
             targetMenu.transform.position = newPosition;
 
-            // Rotate the menu to face the player
             targetMenu.transform.LookAt(new Vector3(ovrCameraRig.position.x, targetMenu.transform.position.y, ovrCameraRig.position.z));
-            targetMenu.transform.Rotate(0, 180, 0); // Rotate to face the player correctly
+            targetMenu.transform.Rotate(0, 180, 0); 
         }
     }
 
